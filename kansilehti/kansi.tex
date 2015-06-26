@@ -1,0 +1,87 @@
+%%
+% HELSINGIN YLIOPISTON  opinn\"aytteisiin liitett\"av\"an tiivistelm\"asivun
+% LaTeX-kielinen  kaavakem\"a\"arittely.
+%
+% Laatinut:  Greger Linden
+%
+% Modif. :   Juha Korpi   (tiivistelm\"ateksti parbox-m\"a\"arittelyn avulla)
+%
+% Modif. :   Tiina Niklander  (muunnos SLaTeX -> LaTeX)
+%
+% Modif  :   Tapio Lehtonen (CR-luokitukset alareunaan)
+%                           (englanninkieliset kent\"annimet 18041994)
+%                           (Viimeinenkin 7-bittisyys pois 09061994)
+% Modif. :   Jouko Arponen 3.1.2002 (mm ??kk?stavutus, postscript, korjattu
+%                            sisennys ym)
+%
+%\input{maareet.tex}
+\documentclass[11pt,a4paper,twoside]{report}
+\usepackage[english]{babel}
+
+\def\division{\char'057}
+\setlength{\unitlength}{.95pt}
+
+\usepackage{ae,aecompl}
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx}
+%\font\sansserif=cmss10
+\renewcommand{\baselinestretch}{1.2}
+\setlength{\textwidth}{21cm}
+\setlength{\textheight}{29.7cm}
+\setlength{\topskip}{0cm}
+\setlength{\footskip}{0cm}
+\addtolength{\oddsidemargin}{-2.0\oddsidemargin}
+\addtolength{\topmargin}{-3.5cm}
+\begin{document}
+
+\begin{titlepage}
+\setcounter{page}{1}
+
+\begin{center}
+
+\vspace*{4cm}
+%\special{psfile="vaakuna.eps" vscale=22 hscale=22 voffset=-150 hoffset=127}
+%\special{psfile="vaakuna.eps" width=0.5\textwidth}
+\includegraphics[width=45mm]{vaakuna.eps}
+
+\vspace*{2cm}
+
+LuK-tutkielma \\
+T?htitiede
+
+\vspace{2.0cm} 
+{\Large \bf
+  \rule{0pt}{3ex}DI Psc ja litium-rikkaat punaiset j?ttil?iset
+}
+
+\title{
+ DI Psc ja litium-rikkaat punaiset j?ttil?iset
+}
+%\maketitle
+
+\vspace{2.0cm} 
+Lauri J. T. Siltala \\
+2014
+
+\vspace{1.5cm} 
+\begin{tabular}{ll}	Ohjaaja: & 	Petri K?pyl? \\ 
+			Tarkastajat: &	Petri K?pyl? \\
+				     &	Thomas Hackman
+\end{tabular}
+
+\vspace{1.5cm} HELSINGIN YLIOPISTO
+
+FYSIIKAN LAITOS
+
+\vspace{0.5cm} PL 64 (Gustaf H?llstr?min katu 2)
+
+00014 Helsingin yliopisto
+
+\end{center}
+
+\end{titlepage}
+
+
+
+
+\end{document}

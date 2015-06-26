@@ -1,0 +1,137 @@
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=latex 2014.1.21)  25 JUN 2015 15:20
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**kansi.tex
+(./kansi.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, et
+hiopic, farsi, arabic, pinyin, croatian, bulgarian, ukrainian, russian, slovak,
+ czech, danish, dutch, usenglishmax, ukenglish, finnish, french, basque, ngerma
+n, german, swissgerman, ngerman-x-2012-05-30, german-x-2012-05-30, monogreek, g
+reek, ibycus, ancientgreek, hungarian, bengali, tamil, hindi, telugu, gujarati,
+ sanskrit, malayalam, kannada, assamese, marathi, oriya, panjabi, italian, lati
+n, latvian, lithuanian, mongolian, mongolianlmc, nynorsk, bokmal, indonesian, e
+speranto, coptic, welsh, irish, interlingua, serbian, serbianc, slovenian, friu
+lan, romansh, estonian, romanian, armenian, uppersorbian, turkish, afrikaans, i
+celandic, kurmanji, polish, portuguese, galician, catalan, spanish, swedish, uk
+english, loaded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
+Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size11.clo
+File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/var/lib/texmf/tex/generic/babel/babel.sty
+Package: babel 2008/07/08 v3.8m The Babel package
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel/english.ldf
+Language: english 2005/03/30 v3.3o English support from the babel system
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
+File: babel.def 2008/07/08 v3.8m Babel common definitions
+\babel@savecnt=\count88
+\U@D=\dimen103
+)
+\l@canadian = a dialect from \language\l@american 
+\l@australian = a dialect from \language\l@british 
+\l@newzealand = a dialect from \language\l@british 
+))
+(/usr/share/texlive/texmf-dist/tex/latex/ae/ae.sty
+Package: ae 2001/02/12 1.3 Almost European Computer Modern
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+)
+LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
+
+(/usr/share/texlive/texmf-dist/tex/latex/ae/t1aer.fd
+File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
+)))
+(/usr/share/texlive/texmf-dist/tex/latex/ae/aecompl.sty
+Package: aecompl 1998/07/23 0.9 T1 Complements for AE fonts (D. Roegel)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2008/03/30 v1.1d Input encoding file
+\inpenc@prehook=\toks14
+\inpenc@posthook=\toks15
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/latin1.def
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+))
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks16
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: dvips.def on input line 91.
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+\Gin@req@height=\dimen104
+\Gin@req@width=\dimen105
+) (./kansi.aux)
+\openout1 = `kansi.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+File: vaakuna.eps Graphic file (type eps)
+
+<vaakuna.eps>
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 67.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 67.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 67.
+ [1
+
+] (./kansi.aux) ) 
+Here is how much of TeX's memory you used:
+ 1165 strings out of 493482
+ 13602 string characters out of 3143416
+ 62655 words of memory out of 3000000
+ 4497 multiletter control sequences out of 15000+200000
+ 10880 words of font info for 26 fonts, out of 3000000 for 9000
+ 965 hyphenation exceptions out of 8191
+ 28i,6n,19p,218b,213s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+Output written on kansi.dvi (1 page, 768 bytes).
