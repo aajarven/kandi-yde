@@ -1,15 +1,24 @@
-\documentclass[12pt,a4paper,titlepage]{article}
+\documentclass[12pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[finnish]{babel}
 \usepackage{setspace}
-\usepackage{parskip}
-\usepackage{amssymb}
-\usepackage{amsmath}
+%\usepackage{parskip}
+%\usepackage{amssymb}
+%\usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{fancyhdr}
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 \usepackage{float}
 \usepackage[section]{placeins}
+
+\usepackage{titlesec}
+\titleclass{\section}{top}
+\newcommand\sectionbreak{\clearpage}
+\titleformat*{\section}{\Huge\bfseries}
+\titleformat*{\subsection}{\Large\bfseries}
+\titleformat*{\subsubsection}{\large\bfseries}
+
+
 %\usepackage[numbered,autolinebreaks,useliterate]{mcode} % jos tahdot laittaa matlabkoodia näkyville niin kannattaa käyttää tätä
 
 % hyödyllisiä paketteja:
@@ -21,9 +30,9 @@
 \hypersetup{pdfborder={0 0 0}}
 \onehalfspacing
 \cfoot{}
-\rhead{\thepage}
+%\rhead{\thepage}
 % asettaa nyk. kappaleen nimen vasempaan ylänurkkaan, saa poistaa jos haluaa
-\lhead{\leftmark}
+%\lhead{\leftmark}
 
 %%%%% kaikki ennen tätä liittyy käytettäviin paketteihin tai dokumentin muotoiluun. siihen ei tarvinne aluksi koskea. %%%%%
 
@@ -63,6 +72,12 @@
 
 %%%%%%%%%%%%%%% Oleellinen sisältö alkaa%%%%%%%%%%%%%%%
 \section{Johdanto}
+Johtajat johtavat johdantoja johdattamaan jotkut johdatukseen.
+\subsection{Jotain tarkempaa}
+juuh elikkäst
+\subsubsection{vielä tarkempaa}
+pienempiä en tarvinne
+
 %Teoreettista teoriaa. Täällä tarvitaan myös yhtälöitä, yhtälö \ref{esimerkkiyhtalo} on yksi sellainen.
 %
 %\begin{equation}\label{esimerkkiyhtalo}
@@ -85,8 +100,10 @@
 
 
 \section{Enzo}
+enzzz
 
 \section{yt}
+waaaiiiitiiii
 
 %\begin{figure}
 %\centering
@@ -96,13 +113,15 @@
 %\end{figure}
 
 \section{Oma työ}
-
+joo kyl mäki tein jotain
 
 
 \section{Tulokset}
+tulostan tähän tuloksia
 
 
 \section{Loppupäätelmät}
+paska työ mutta tulipahan tehtyä
 
 
 %%%%% Sisältö loppuu, lähdeluettelo %%%%%
