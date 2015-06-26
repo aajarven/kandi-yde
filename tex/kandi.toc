@@ -1,8 +1,0 @@
-\select@language {finnish}
-\contentsline {section}{\numberline {1}Johdanto}{1}{section.1}
-\contentsline {section}{\numberline {2}Enzo}{1}{section.2}
-\contentsline {section}{\numberline {3}yt}{1}{section.3}
-\contentsline {section}{\numberline {4}Oma ty\IeC {\"o}}{1}{section.4}
-\contentsline {section}{\numberline {5}Tulokset}{1}{section.5}
-\contentsline {section}{\numberline {6}Loppup\IeC {\"a}\IeC {\"a}telm\IeC {\"a}t}{1}{section.6}
-\contentsline {section}{\numberline {A}Liittyv\IeC {\"a} liite.}{2}{appendix.A}
