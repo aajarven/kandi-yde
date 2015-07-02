@@ -10,6 +10,7 @@
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 \usepackage{float}
 \usepackage[section]{placeins}
+\usepackage[nottoc,notlot,notlof]{tocbibind}
 
 \usepackage{titlesec}
 \titleclass{\section}{top}
@@ -17,7 +18,6 @@
 \titleformat*{\section}{\Huge\bfseries}
 \titleformat*{\subsection}{\Large\bfseries}
 \titleformat*{\subsubsection}{\large\bfseries}
-
 
 %\usepackage[numbered,autolinebreaks,useliterate]{mcode} % jos tahdot laittaa matlabkoodia näkyville niin kannattaa käyttää tätä
 
@@ -68,15 +68,13 @@
 \parskip=1em \advance\parskip by 0pt plus 2pt
 \pagestyle{fancy}
 
-% prosenttimerkillä alkavat rivit ovat kommentteja: niitä ei katsota dokumenttia käännettäessä eli ne ovat vain kirjoittajaa varten
 
 %%%%%%%%%%%%%%% Oleellinen sisältö alkaa%%%%%%%%%%%%%%%
 \section{Johdanto}
-Johtajat johtavat johdantoja johdattamaan jotkut johdatukseen.
-\subsection{Jotain tarkempaa}
-juuh elikkäst
-\subsubsection{vielä tarkempaa}
-pienempiä en tarvinne
+
+
+
+\cite{rj, yt, enzo}
 
 %Teoreettista teoriaa. Täällä tarvitaan myös yhtälöitä, yhtälö \ref{esimerkkiyhtalo} on yksi sellainen.
 %
@@ -100,9 +98,9 @@ pienempiä en tarvinne
 
 
 \section{Enzo}
-enzzz
 
-\section{yt}
+
+\section{\texttt{yt}}
 waaaiiiitiiii
 
 %\begin{figure}
@@ -126,7 +124,7 @@ paska työ mutta tulipahan tehtyä
 
 %%%%% Sisältö loppuu, lähdeluettelo %%%%%
 \bibliographystyle{plain}
-\bibliography{lahteet} %lähdeluettelon tiedot tiedostossa selkkarilahteet.bib. Esimerkiksi helkasta saa kirjojen tiedot valmiiksi bibtex-muodossa, kannattaa hyödyntää.
+\bibliography{journals,lahteet} %lähdeluettelon tiedot tiedostossa selkkarilahteet.bib. Esimerkiksi helkasta saa kirjojen tiedot valmiiksi bibtex-muodossa, kannattaa hyödyntää.
 
 \appendix
 \newpage
