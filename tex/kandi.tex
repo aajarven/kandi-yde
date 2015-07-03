@@ -20,45 +20,18 @@
 \titleformat*{\subsection}{\Large\bfseries}
 \titleformat*{\subsubsection}{\large\bfseries}
 
-%\usepackage[numbered,autolinebreaks,useliterate]{mcode} % jos tahdot laittaa matlabkoodia näkyville niin kannattaa käyttää tätä
+%\usepackage[numbered,autolinebreaks,useliterate]{mcode}
 
-% hyödyllisiä paketteja:
 \usepackage{siunitx}\sisetup{per=frac} % SI-yksiköitä.
 %\usepackage{supertabular} % jos tarttee isoja taulukoita
-%\usepackage{fullpage} % pienemmät marginaalit jos haluaa
 
-\usepackage{hyperref} % lisääthän omat pakettisi ENNEN hyperref'iä
+\usepackage{hyperref}
 \hypersetup{pdfborder={0 0 0}}
 \onehalfspacing
 \cfoot{}
-%\rhead{\thepage}
-% asettaa nyk. kappaleen nimen vasempaan ylänurkkaan, saa poistaa jos haluaa
-%\lhead{\leftmark}
 
-%%%%% kaikki ennen tätä liittyy käytettäviin paketteihin tai dokumentin muotoiluun. siihen ei tarvinne aluksi koskea. %%%%%
 
 \begin{document}
-%\newgeometry{top=1in, bottom=1.5in, left=1.5in, right=1.5in}
-%%\begin{abstract}
-%%\setlength{\parindent}{0pt}
-%%\parskip=1em \advance\parskip by 0pt plus 2pt
-%%\onehalfspacing
-%
-%%%%%% Tiivistelmäteksti %%%%%
-%\noindent
-%Tyrkkää tänne tiivis tiivistelmä tuloksista.
-%
-%\LaTeX saattaa tuntua aluksi hankalalta. Valmiin pohjan käyttäminen on kuitenkin helppo tapa päästä jyvälle, niin allekirjoittanutkin aikoinaan oppi. Netistä löytyy myös paljon materiaalia, esim wikibooksista (\url{http://en.wikibooks.org/wiki/LaTeX}). Myös suomenkielistä materiaalia on: \url{http://www.cs.tut.fi/lintula/manual/TeX/TeXdoc/latex/general/lyhyt/lyhyt2e.pdf}. Ette te kuitenkaan tuota jaksa lukea, en minäkään jaksanut, mutta tiedättepähän että on mistä etsiä jos on ongelmia. Suosittelen myös googlea: kaltaisiani hönöjä on internet täynnä joten esimerkiksi stack\-ex\-changessa % jos ihmettelet tuota \- niin se on tavutusvihje. Aina latexin kääntäjä ei osaa tavuttaa sanoja oikein, jolloin sille voi kertoa parhaan paikan katkaista sana. Jos ihmettelet tätä prosenttimerkillä alkavaa osaa, tämä on kommentti. Niihin voi kirjoittaa kaikenlaista sellaista, minkä ei tahdo tulevan näkyviin lopulliseen dokumenttiin.
-%joku on jo kysynyt lähes jokaista minulle eteen tullutta ongelmaa. Näpyttäkää siis ongelmanne googleen avainsanan "latex" kanssa.
-%
-%Jos opettelu tuntuu vaikealta, kannattaa muistaa, että fyysikolle se on edessä ennemmin tai myöhemmin joka tapauksessa. Tähtitieteilijälle jo ennemmin: tähtitieteen käytännön menetelmien lopputyö pitää laatia latexilla.
-%
-%Tämä selkkaripohja on tehty Helsingin Matematiikkalukiossa käytetyn tutkielmapohjan päälle, kiitokset siitä Tuomas Tynkkyselle.
-%
-%\-Rakkaudella kaikille fukseille ja fuksinmielisille $\heartsuit$ \\
-%Anni Järvenpää
-%\end{abstract}
-%\restoregeometry
 
 % Sisällysluettelo
 \newpage
@@ -99,24 +72,31 @@
 
 
 \section{Enzo}
-Enzo on adaptiivista verkontihennystä (\textit{Adaptive Mesh Refinement}, AMR) hyödyntävä simulaatiokoodi, %TODO mieti: adaptiivinen verkontihennys, jotain muuta? simulaatiokoodi?
-joka mahdollistaa ympäristöä suuremman aika- ja paikkaresoluution käyttämisen simulaation kiinnostavilla alueilla. Tämä on tärkeää, sillä usein melko pienellä alueella tarvitaan suurta resoluutiota, mutta koko simulaation ajaminen näin suurella tarkkuudella veisi kohtuuttoman paljon aikaa. Siksi AMR-simulaatioissa simulaation solun kokoa voidaan muuttaa  % eri kokoiset lootikot
+Enzo on mukautuvaa hilantihennystä (\textit{Adaptive Mesh Refinement}, AMR) hyödyntävä simulaatiokoodi, joka mahdollistaa aika- ja paikkaresoluution kasvattamisen simulaation kiinnostavilla alueilla. Tämä on tärkeää, sillä usein melko pienellä alueella tarvitaan suurta resoluutiota, mutta koko simulaation ajaminen näin suurella tarkkuudella veisi kohtuuttoman paljon aikaa.
 
-Esimerkiksi kuvassa \ref{fig:enzogrid} nähdään, kuinka tiheämmillä alueilla käytetään pienempiä 
+	\subsection{Hila}
+	Simuloitava alue katetaan kokonaan hilalla, jonka tiheys valitaan sellaiseksi, että saavutetaan pienin haluttava resoluutio. Tämä niinkutsuttu juurihila toimii juurena muiden hilojen muodostamalle hierarkialle, joka muodostuu, kun juurihilasta valitaan alueita simuloitavaksi korkeammalla resoluutiolla.\cite{enzo}
+	
+	Kaikki hilat ovat karteesisia ja suorakulmaisia. Alueille, joilla tarvitaan korkeampaa resoluutiota, asetetaan juurihilan kanssa päällekkäin toinen, hienorakeisempi hila. Näitä sisäkkäisiä hiloja voi tarvittaessa olla teoriassa mielivaltaisen monta ja ne muodostavat puumaisen rakenteen.\cite{enzo}%oikeasti mielivaltaisen monta?
+	%Alueet, joilla käytetään suurempaa resoluutiota, valitaan siten, että niiden kaikki tahkot ovat päällekäin jonkin matalamman resoluution hilan tahkojen kanssa. 
+	
+	Kullakin hilalla juurihilaa lukuun ottamatta on vanhempi, joka sisältää hilan kokonaan. Yhdellä hilalla voi olla useita lapsia, mutta aina vain yksi vanhempi. Tavallisesta puita koskevasta nimeämiskäytännöstä poiketen sisaruksiksi kutsutaan kaikkia niitä hiloja, joiden resoluutio on sama eli ne sijaitsevat puussa samalla tasolla.\cite{enzo}
+	
+	Hienompia hiloja luotaessa valitaan hilan solujen koko siten, että hila rajoittuu reunoistaan vanhempansa solujen tahkoihin. Lisäksi solun vanhemman sivun pituuden tulee olla jokin monikerta solun sivun pituudesta.  
+
+%Siksi AMR-simulaatioissa 
+
+%Esimerkiksi kuvassa \ref{fig:enzogrid} nähdään, kuinka tiheämmillä alueilla käytetään pienempiä 
 
 \begin{figure}
    \centering
    \begin{subfigure}[b]{0.45\textwidth}
-       \includegraphics[height=7.5cm]{../kuvat/amr-grid.png}
-       %\caption{}
-       %\label{fig:gull}
+       \includegraphics[height=7.9cm]{../kuvat/amr-grid.png}
    \end{subfigure}
    \begin{subfigure}[b]{0.45\textwidth}
-       \includegraphics[height=7.5cm]{../kuvat/amr-nogrid.png}
-       %\caption{A tiger}
-       %\label{fig:tiger}
+       \includegraphics[height=7.9cm]{../kuvat/amr-nogrid.png}
    \end{subfigure}
-   \caption{Halkileikkaus $100$ pc$^2$ alueesta erään Enzo-simulaation alkutilanteesta solujen raajat näkyvillä (vasen kuva) sekä ilman niitä (oikea kuva). Kiinnostavammilla alueilla solut ovat pienempiä. Resoluution heikentyminen suuremmissa soluissa on selvästi nähtävissä.}\label{fig:enzogrid} %TODO mieti: miten näkyviin se, että kyseessä on Johnin simulaatio? Kerro mitä kuvassa on
+   \caption{Halkileikkaus $100$ pc$^2$ alueesta eräästä Enzo-simulaatiosta solujen rajat näkyvillä (vasen kuva) sekä ilman niitä (oikea kuva). Kiinnostavammilla alueilla solut ovat pienempiä. Resoluution heikentyminen suuremmissa soluissa on selvästi nähtävissä.}\label{fig:enzogrid} %TODO mieti: miten näkyviin se, että kyseessä on Johnin simulaatio? Kerro mitä kuvassa on
 
 \end{figure}
 
