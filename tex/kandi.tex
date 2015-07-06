@@ -96,12 +96,19 @@ Hienompia hiloja luotaessa valitaan hilan solujen koko siten, että hila rajoitt
 
 Kukin hila koostuu varsinaisen datan tallettavien aktiivisten vyöhykkeiden (\textit{active zone}) lisäksi haamuvyöhykkeistä (\textit{ghost zone}), joita käytetään laskennassa tarvittavien aktiivisten vyöhykkeiden arvojen päivittämiseen tarvittavien naapurisolujen varastoimiseen väliaikaisesti. Hydrodynamiikkaa varten haamuvyöhykkeitä on kolme kerrosta kullakin aktiivisen vyöhykkeen tahkolla. Haamuvyöhykkeiden arvot saadaan interpoloimalla hilan vanhemmasta tai kopioimalla sisaruksista.\cite{arxivenzo, enzo}
 
-\subsection{Numeerinen ratkaiseminen}
+\subsection{Numeerinen ratkaiseminen} %TODO retardi otsikko
+Enzo tarkastelee kutakin hilaa omana ongelmanaan ratkaisten tarvittavat yhtälöt kullekin hilalle erikseen käyttäen reunaehtoina haamuvyöhykkeistä saatavia arvoja. Aluksi määritetään halutun tarkkuuden saavuttamiseksi tarvittava aika-askel kullekin puun tasolle. Tämän jälkeen aletaan tasoja käydä läpi W-syklin mukaisesti (kuva \ref{fig:w-cycle}). \cite{enzo} %TODO W-syklin mukaisesti?
 
+W-syklissä kunkin tason kaikille hiloille lasketaan niiden tila yhden aika-askeleen kuluttua. Laskeminen aloitetaan juurihilasta se etenee tasoittain, kunnes kaikki AMR-puun lehdet on käsitelty. Seuraavaksi puun alimmalla tasolla olevia hiloja edistetään niin monta aika-askelta kuin tarvitaan, jotta saavutetaan ylempi taso, jonka hiloja edistetään myös yhden aika-askeleen verran. Tämän jälkeen alimman tason hiloja edistetään taas, kunnes ylempi taso on jälleen saavutettu. \cite{enzo}
 
-Enzo tarkastelee kutakin hilaa omana ongelmanaan ratkaisten tarvittavat yhtälöt kullekin hilalle erikseen. Reunaehdot saadaan haamuvyöhykkeiden arvoista, kun ne on interpoloitu hilan vanhemmasta tai kopioitu sisaruksista.
+Hilojen edistämistä jatketaan näin, edistäen aina tason $l$ hiloja, kunnes ne saavuttavat tason $l-1$ hilat, jolloin tason $l-1$ hiloja edistetään jälleen yhden aika-askeleen verran. Näin seuraava aika-askel lasketaan aina sille tasolle, jolla aikaa simulaation alusta on kulunut vähiten. Kun hiloja on edistetty niin pitkälle, että on jälleen aika edistää tason 0 hilaa, sykli alkaa alusta. \cite{enzo}
 
-	
+\begin{figure}
+   \centering
+   \includegraphics[width=\textwidth]{../kuvat/W-cycle.png}
+   \caption{Vasemmalla kolmitasoinen hierarkia hiloja ja oikealla niiden läpikäyntijärjestys W-syklissä ja aika-askeleiden pituudet kun oletetaan, että tason $l$ aika-askel on puolet tason $l+1$ aika-askeleen pituudesta ja tason $0$ aika-askeleen pituus on $t$. Katkoviivalla on erotettu vaiheet, joiden jälkeen kunkin tason hilat ovat edenneet ajan $t$ verran eli ollaan jälleen alkutilannetta vastaavassa tilanteessa, jolloin sykli alkaa uudelleen.}\label{fig:w-cycle} %TODO W-syklissä?
+\end{figure}
+
 %Siksi AMR-simulaatioissa 
 
 %Esimerkiksi kuvassa \ref{fig:enzogrid} nähdään, kuinka tiheämmillä alueilla käytetään pienempiä 
