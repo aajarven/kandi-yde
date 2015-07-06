@@ -29,7 +29,7 @@
 \hypersetup{pdfborder={0 0 0}}
 \onehalfspacing
 \cfoot{}
-
+\setlength{\parindent}{0pt}
 
 \begin{document}
 
@@ -45,10 +45,7 @@
 
 %%%%%%%%%%%%%%% Oleellinen sisältö alkaa%%%%%%%%%%%%%%%
 \section{Johdanto}
-
-
-
-\cite{rj, yt, enzo}
+\cite{rj, yt, enzo} %TODO http://arxiv.org/pdf/astro-ph/0403044v1.pdf hyvä soossi
 
 %Teoreettista teoriaa. Täällä tarvitaan myös yhtälöitä, yhtälö \ref{esimerkkiyhtalo} on yksi sellainen.
 %
@@ -72,21 +69,15 @@
 
 
 \section{Enzo}
-Enzo on mukautuvaa hilantihennystä (\textit{Adaptive Mesh Refinement}, AMR) hyödyntävä simulaatiokoodi, joka mahdollistaa aika- ja paikkaresoluution kasvattamisen simulaation kiinnostavilla alueilla. Tämä on tärkeää, sillä usein melko pienellä alueella tarvitaan suurta resoluutiota, mutta koko simulaation ajaminen näin suurella tarkkuudella veisi kohtuuttoman paljon aikaa.
+Enzo on astrofysikaalisten fluidien simulointiin käytettävä ilmainen ja avoin simulaatiokoodi, joka on suunniteltu kosmologisten rakenteiden simulointiin. Se tukee muun muassa hydrodynamiikkaa, ideaalista ja epäideaalista magnetohydrodynamiikkaa, N kappaleen simulaatioita, kaasupilvien kemiaa, säteilynkuljetusta, tähtien syntyä sekä maailmankaikkeuden laajenemista. \cite{enzo} %TODO tukeminen tyhmästi sanottu
 
-	\subsection{Hila}
-	Simuloitava alue katetaan kokonaan hilalla, jonka tiheys valitaan sellaiseksi, että saavutetaan pienin haluttava resoluutio. Tämä niinkutsuttu juurihila toimii juurena muiden hilojen muodostamalle hierarkialle, joka muodostuu, kun juurihilasta valitaan alueita simuloitavaksi korkeammalla resoluutiolla.\cite{enzo}
-	
-	Kaikki hilat ovat karteesisia ja suorakulmaisia. Alueille, joilla tarvitaan korkeampaa resoluutiota, asetetaan juurihilan kanssa päällekkäin toinen, hienorakeisempi hila. Näitä sisäkkäisiä hiloja voi tarvittaessa olla teoriassa mielivaltaisen monta ja ne muodostavat puumaisen rakenteen.\cite{enzo}%oikeasti mielivaltaisen monta?
-	%Alueet, joilla käytetään suurempaa resoluutiota, valitaan siten, että niiden kaikki tahkot ovat päällekäin jonkin matalamman resoluution hilan tahkojen kanssa. 
-	
-	Kullakin hilalla juurihilaa lukuun ottamatta on vanhempi, joka sisältää hilan kokonaan. Yhdellä hilalla voi olla useita lapsia, mutta aina vain yksi vanhempi. Tavallisesta puita koskevasta nimeämiskäytännöstä poiketen sisaruksiksi kutsutaan kaikkia niitä hiloja, joiden resoluutio on sama eli ne sijaitsevat puussa samalla tasolla.\cite{enzo}
-	
-	Hienompia hiloja luotaessa valitaan hilan solujen koko siten, että hila rajoittuu reunoistaan vanhempansa solujen tahkoihin. Lisäksi solun vanhemman sivun pituuden tulee olla jokin monikerta solun sivun pituudesta.  
+Enzo hyödyntää mukautuvaa hilantihennystä (\textit{Adaptive Mesh Refinement}, AMR), joka mahdollistaa aika- ja paikkaresoluution kasvattamisen simulaation kiinnostavilla alueilla. Tämä on tärkeää, sillä usein melko pienellä alueella tarvitaan suurta resoluutiota, mutta koko simulaation ajaminen näin suurella tarkkuudella veisi kohtuuttoman paljon aikaa. \cite{enzo}
 
-%Siksi AMR-simulaatioissa 
-
-%Esimerkiksi kuvassa \ref{fig:enzogrid} nähdään, kuinka tiheämmillä alueilla käytetään pienempiä 
+\subsection{Hila}
+Simuloitava alue katetaan kokonaan hilalla, jonka tiheys valitaan sellaiseksi, että saavutetaan pienin haluttava resoluutio. Tämä niinkutsuttu juurihila toimii juurena muiden hilojen muodostamalle hierarkialle, joka muodostuu, kun juurihilasta valitaan alueita simuloitavaksi korkeammalla resoluutiolla.\cite{enzo}
+	
+Kaikki hilat ovat karteesisia ja suorakulmaisia. Alueille, joilla tarvitaan korkeampaa resoluutiota, asetetaan juurihilan kanssa päällekkäin toinen, hienorakeisempi hila. Näitä sisäkkäisiä hiloja voi tarvittaessa olla teoriassa mielivaltaisen monta. Kuvassa \ref{fig:enzogrid} on selvästi nähtävillä hilojen mukauttaminen tutkittavaan alueeseen: tiheillä tai muuten kiinnostavilla alueilla kätetään pienempiä ja tiheämpiä hiloja. \cite{enzo} %TODO oikeasti mielivaltaisen monta?
+%Alueet, joilla käytetään suurempaa resoluutiota, valitaan siten, että niiden kaikki tahkot ovat päällekäin jonkin matalamman resoluution hilan tahkojen kanssa. 
 
 \begin{figure}
    \centering
@@ -96,9 +87,28 @@ Enzo on mukautuvaa hilantihennystä (\textit{Adaptive Mesh Refinement}, AMR) hy�
    \begin{subfigure}[b]{0.45\textwidth}
        \includegraphics[height=7.9cm]{../kuvat/amr-nogrid.png}
    \end{subfigure}
-   \caption{Halkileikkaus $100$ pc$^2$ alueesta eräästä Enzo-simulaatiosta solujen rajat näkyvillä (vasen kuva) sekä ilman niitä (oikea kuva). Kiinnostavammilla alueilla solut ovat pienempiä. Resoluution heikentyminen suuremmissa soluissa on selvästi nähtävissä.}\label{fig:enzogrid} %TODO mieti: miten näkyviin se, että kyseessä on Johnin simulaatio? Kerro mitä kuvassa on
-
+   \caption{Läpileikkaus $100$ pc$^2$ alueesta Enzo-simulaatiosta (julkaisua Regan et al. 2015 varten), jonka hilojen rajat näkyvillä (vasen kuva) sekä ilman niitä (oikea kuva). Kiinnostavammilla alueilla solut ovat pienempiä. Resoluution heikentyminen simulaation reuna-alueilla sijaitsevissa suuremmissa ja harvemmissa hiloissa on selvästi nähtävissä oikeanpuoleisessa kuvassa.}\label{fig:enzogrid} %TODO onko tuossa Regan et al. 2015 mitään järkeä?
 \end{figure}
+	
+Kullakin hilalla juurihilaa lukuun ottamatta on vanhempi, joka sisältää hilan kokonaan. Yhdellä hilalla voi olla useita lapsia, mutta aina vain yksi vanhempi. Näin hilat muodostavat puumaisen rakenteen. Tavallisesta puita koskevasta nimeämiskäytännöstä poiketen sisaruksiksi kutsutaan kaikkia niitä hiloja, joiden resoluutio on sama eli ne sijaitsevat puussa samalla tasolla. \cite{enzo}
+	
+Hienompia hiloja luotaessa valitaan hilan solujen koko siten, että hila rajoittuu reunoistaan vanhempansa solujen tahkoihin. Lisäksi solun vanhemman sivun pituuden tulee olla jokin monikerta solun sivun pituudesta. \cite{enzo}
+
+Kukin hila koostuu varsinaisen datan tallettavien aktiivisten vyöhykkeiden (\textit{active zone}) lisäksi haamuvyöhykkeistä (\textit{ghost zone}), joita käytetään laskennassa tarvittavien aktiivisten vyöhykkeiden arvojen päivittämiseen tarvittavien naapurisolujen varastoimiseen väliaikaisesti. Hydrodynamiikkaa varten haamuvyöhykkeitä on kolme kerrosta kullakin aktiivisen vyöhykkeen tahkolla. Haamuvyöhykkeiden arvot saadaan interpoloimalla hilan vanhemmasta tai kopioimalla sisaruksista.\cite{arxivenzo, enzo}
+
+\subsection{Numeerinen ratkaiseminen}
+
+
+Enzo tarkastelee kutakin hilaa omana ongelmanaan ratkaisten tarvittavat yhtälöt kullekin hilalle erikseen. Reunaehdot saadaan haamuvyöhykkeiden arvoista, kun ne on interpoloitu hilan vanhemmasta tai kopioitu sisaruksista.
+
+	
+%Siksi AMR-simulaatioissa 
+
+%Esimerkiksi kuvassa \ref{fig:enzogrid} nähdään, kuinka tiheämmillä alueilla käytetään pienempiä 
+
+
+
+
 
 \section{\texttt{yt}}
 waaaiiiitiiii
