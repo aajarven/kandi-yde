@@ -12,6 +12,7 @@
 \usepackage{float}
 \usepackage[section]{placeins}
 \usepackage[nottoc,notlot,notlof]{tocbibind}
+%\usepackage{listings}
 
 \usepackage{titlesec}
 \titleclass{\section}{top}
@@ -30,6 +31,8 @@
 \onehalfspacing
 \cfoot{}
 \setlength{\parindent}{0pt}
+\newcommand{\yt}{\texttt{yt}}
+
 
 \begin{document}
 
@@ -114,11 +117,21 @@ Hilojen edistämistä jatketaan näin, edistäen aina tason $l$ hiloja, kunnes n
 %Esimerkiksi kuvassa \ref{fig:enzogrid} nähdään, kuinka tiheämmillä alueilla käytetään pienempiä 
 
 
+\section{\yt}
+\yt\ on avoimen lähdekoodin Python-paketti, joka on mahdollistaa simulaatiotulosten helpon lukemisen, analysoinnin ja visualisoinnin. Kehitystyön alkuvaiheessa se sopi käytettäväksi vain Enzo-simulaatioiden kanssa, mutta nykyään sillä voidaan suoraan lukea sekä muiden AMR-simulaatioiden (kuten RAMSES tai BoxLib) että esimerkiksi N kappaleen simulaatioiden (esimerkiksi Gadget) tuloksia. \cite{yt}
+
+\yt\ abstrahoi hyvin voimakkaasti lukemansa datan, jolloin käyttäjä voi keksittyä fysikaalisiin rakenteisiin, joita simulaatio edustaa. Kun käyttäjä on ladannut datan muistiin, voi siitä tarkastella esimerkiksi pallomaista aluetta antamalla alueen keskustan koordinaatit ja pallon säteen ilman, että käyttäjän tarvitsee esimerkiksi etsiä niitä hiloja, jotka kattavat alueen parhaalla mahdollisella resoluutiolla tai tietää, missä tiedostoissa data on tallennettuna. \cite{yt}
+
+Koska dataa käsitellään abstrakteina olioina, voidaan samaa ohjelmaa käyttää myös eri simulaatioista saadun datan kanssa vaihtamalla luettavaa datasettiä. Esimerkiksi alla oleva koodisegmentti lataa kansiossa "data" olevan simulaation muistiin ja plottaa sen jälkeen sivultaan 500 kpc olevan alueen poikkileikkauksen tiheyden ja tallentaa sen. Ohjelma ei ota kantaa luettavan datan muotoon, ja onkin siksi helposti käytettävissä minkä tahansa datasetin kanssa, jota \yt\ tukee. \cite{yt}
+
+\begin{verbatim}
+import yt
+dataset = yt.load("data")
+plot = yt.SlicePlot(dataset, "x", "density", width = (500, "kpc"))
+plot.save("slice.png")
+\end{verbatim}
 
 
-
-\section{\texttt{yt}}
-waaaiiiitiiii
 
 %\begin{figure}
 %\centering
