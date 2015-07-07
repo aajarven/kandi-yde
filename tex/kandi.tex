@@ -120,18 +120,31 @@ Hilojen edistämistä jatketaan näin, edistäen aina tason $l$ hiloja, kunnes n
 \section{\yt}
 \yt\ on avoimen lähdekoodin Python-paketti, joka on mahdollistaa simulaatiotulosten helpon lukemisen, analysoinnin ja visualisoinnin. Kehitystyön alkuvaiheessa se sopi käytettäväksi vain Enzo-simulaatioiden kanssa, mutta nykyään sillä voidaan suoraan lukea sekä muiden AMR-simulaatioiden (kuten RAMSES tai BoxLib) että esimerkiksi N kappaleen simulaatioiden (esimerkiksi Gadget) tuloksia. \cite{yt}
 
-\yt\ abstrahoi hyvin voimakkaasti lukemansa datan, jolloin käyttäjä voi keksittyä fysikaalisiin rakenteisiin, joita simulaatio edustaa. Kun käyttäjä on ladannut datan muistiin, voi siitä tarkastella esimerkiksi pallomaista aluetta antamalla alueen keskustan koordinaatit ja pallon säteen ilman, että käyttäjän tarvitsee esimerkiksi etsiä niitä hiloja, jotka kattavat alueen parhaalla mahdollisella resoluutiolla tai tietää, missä tiedostoissa data on tallennettuna. \cite{yt}
+\yt\ abstrahoi hyvin voimakkaasti lukemansa datan, jolloin käyttäjä voi keksittyä fysikaalisiin rakenteisiin, joita simulaatio edustaa. Kun käyttäjä on ladannut datan muistiin, voi siitä tarkastella esimerkiksi pallomaista aluetta antamalla alueen keskustan koordinaatit ja pallon säteen ilman, että käyttäjän tarvitsee esimerkiksi etsiä niitä hiloja, jotka kattavat alueen parhaalla mahdollisella resoluutiolla tai tietää, missä tiedostoissa data on tallennettuna. Lisäksi \yt\ huolehtii yksikkömuunnoksista. \cite{yt}
 
-Koska dataa käsitellään abstrakteina olioina, voidaan samaa ohjelmaa käyttää myös eri simulaatioista saadun datan kanssa vaihtamalla luettavaa datasettiä. Esimerkiksi alla oleva koodisegmentti lataa kansiossa "data" olevan simulaation muistiin ja plottaa sen jälkeen sivultaan 500 kpc olevan alueen poikkileikkauksen tiheyden ja tallentaa sen. Ohjelma ei ota kantaa luettavan datan muotoon, ja onkin siksi helposti käytettävissä minkä tahansa datasetin kanssa, jota \yt\ tukee. \cite{yt}
+Koska dataa käsitellään abstrakteina olioina, voidaan samaa ohjelmaa käyttää myös eri simulaatioista saadun datan kanssa vaihtamalla luettavaa datasettiä. Esimerkiksi alla oleva koodisegmentti lataa kansiossa "data" olevan simulaation muistiin ja plottaa sen jälkeen sivultaan 500 kpc olevan alueen poikkileikkauksen tiheyden ja tallentaa sen. Ohjelma ei ota kantaa luettavan datan muotoon, ja onkin siksi helposti käytettävissä minkä tahansa datasetin kanssa, jota \yt\ tukee. \cite{yt, cookbook}
 
+\begin{minipage}{\textwidth}
 \begin{verbatim}
 import yt
 dataset = yt.load("data")
 plot = yt.SlicePlot(dataset, "x", "density", width = (500, "kpc"))
 plot.save("slice.png")
 \end{verbatim}
+\end{minipage}
 
+Simulaatiodatassa olevien tietojen lisäksi \yt\ pystyy laskemaan datasta myös monia muita suureita kuten vaikkapa kulmaliikemäärän, maksimi- ja minimiarvoja sekä niiden sijainteja tai massakeskipisteen sijainnin. Lisäksi käyttäjän on mahdollista luoda omia kenttiä. Alla on esimerkki koodinpätkästä, jolla lisättäisiin paine \yt :n tuntemien kenttien joukkoon. Uudelle kentälle määritellään nimen ja funktion lisäksi myös yksikkö. \cite{yt, cookbook}
 
+\begin{minipage}{\textwidth}
+\begin{verbatim}
+def _pressure(field, data):
+    return (data.ds.gamma - 1.0) * data["density"] * data["thermal_energy"]
+
+yt.add_field("pressure", function=_pressure, units="dyne/cm**2")
+\end{verbatim} %TODO gamma? specific heat ratio? keksi parempi kenttä? vaihda ainakin yksiköt
+\end{minipage}
+
+Laskettujen suureidin laskemisen jälkeen \yt\ tarjoaa laajan valikoiman työkaluja tulosten visualisointiin. Aiemmin esiteltyjen halkileikkausten lisäksi \yt :llä voi luoda muun muassa erilaisia profiileja, painottamattomia tai painotettuja projektioita tai 3D-renderöintejä. 
 
 %\begin{figure}
 %\centering
