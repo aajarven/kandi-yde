@@ -152,9 +152,12 @@ Usein visualisoitavaa dataa on hyvin paljon ja tietokoneiden kehittyessä sen m�
 
 Käyttäjä voi ottaa rinnakkaistuksen käyttöön ohjelmassaan yksinkertaisesti lisäämällä ohjelmansa alkuun rivin \texttt{yt.enable\_parallelism()}. Lisäksi ohjelman suorittamiseen on luonnollisesti käytettävä \texttt{mpirun}-komentoa. Tällöin \yt\ osaa rinnakkaistaa esimerkiksi projektioiden, poikkileikkausten, profiilien ja 3D-renderöintien luonnin sekä halojen etsimisen. Tarvittaessa joitain operaatioita voidaan suorittaa sarjallisesti esimerkiksi tarkastamalla funktion \texttt{yt.is\_root()} palauttama arvo, joka palauttaa arvon \texttt{True} jos kutsuvalla prosessorilla on MPI rank 0, muuten \texttt{False}. \cite{yt, parallel}
 
-\yt\ pystyy käsittelemään myös useita datasettejä tai objekteja rinnakkain. Käyttämällä jokerimerkkejä kuten \texttt{*} ja \texttt{?} dataa ladattaessa. 
+\yt\ pystyy käsittelemään myös useita datasettejä tai objekteja rinnakkain. Käyttämällä jokerimerkkejä kuten \texttt{*} ja \texttt{?} dataa ladattaessa, voidaan kerralla ladata useita datasettejä tai objekteja käsiteltäväksi rinnakkain. Tämän jälkeen ne voidaan käydä läpi \texttt{piter()}-funktiota käyttäen, joka jakaa käsiteltävät oliot prosessorien kesken. \cite{parallel}%TODO objekteja käytettäessä lataus tehdään oikeastaan vasta myöhemmin http://yt-project.org/doc/analyzing/parallel_computation.html#parallelizing-over-multiple-objects
 
-% parallel
+\subsection{Visualisoinnin upottaminen simulaatiokoodiin}
+Vaikka simulaation tila voidaan tarvittaessa tallentaa vaikka jokaisen aika-askeleen jälkeen, on prosessi hidas ja vaatii suuria tai pitkäkestoisia simulaatioita ajettaessa kohtuuttoman paljon levytilaa. Python/C API mahdollistaa muistissa olevan datan antamisen Python-tulkille simulaation sisällä. \yt\ tarjoaa API:n jolla simulaation informaatio voidaan välittää analyysipaketille ja \yt :tä voidaan käyttää niiden analysointiin. \cite{yt}
+
+Kun simulaation outputteja ei tarvitse tallentaa visualisointia varten, voidaan kuvia tai plotteja tallentaa huomattavasti useammin ja saavutetaan huomattavasti parempi tarvittavan tallennustilan ja tallennetun hyödyllisen informaation määrän suhde, sillä simulaation outputin koko liikkuu usein gigatavujen luokassa kun taas esimerkiksi kuvat ovat vain joitain kymmeniä tai satoja kilotavuja. Tyypillisesti dataa redusoidaan voimakkaasti joka tapauksessa, joten alkuperäisen outputin tallentaminen ei välttämättä ole mielekästä niin usein, kuin esimerkiksi animaation tuottamiseksi on tarpeen. \cite{yt} %TODO this is shit
 
 % voi visualisoida esim enzon kanssa jo simulaatiota ajaessa
 
