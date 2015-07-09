@@ -159,10 +159,6 @@ Vaikka simulaation tila voidaan tarvittaessa tallentaa vaikka jokaisen aika-aske
 
 Kun simulaation outputteja ei tarvitse tallentaa visualisointia varten, voidaan kuvia tai plotteja tallentaa huomattavasti useammin ja saavutetaan huomattavasti parempi tarvittavan tallennustilan ja tallennetun hyödyllisen informaation määrän suhde, sillä simulaation outputin koko liikkuu usein gigatavujen luokassa kun taas esimerkiksi kuvat ovat vain joitain kymmeniä tai satoja kilotavuja. Tyypillisesti dataa redusoidaan voimakkaasti joka tapauksessa, joten alkuperäisen outputin tallentaminen ei välttämättä ole mielekästä niin usein, kuin esimerkiksi animaation tuottamiseksi on tarpeen. \cite{yt} %TODO this is shit
 
-% voi visualisoida esim enzon kanssa jo simulaatiota ajaessa
-
-% conclusions?
-
 %\begin{figure}
 %\centering
 %\includegraphics[width=\textwidth]{yllatyskipsu.jpg} %lveydeksi voi antaa myös vaikkapa 5cm tai muun konkreettisen mitan tai vaihtoehtoisesti asettaa leveydeksi vaikapa 80% tekstin leveydestä parametrilla 0.8\textwidth. Kuvan korjeuden voi asettaa esimerkiksi height=6cm.
@@ -171,8 +167,14 @@ Kun simulaation outputteja ei tarvitse tallentaa visualisointia varten, voidaan 
 %\end{figure}
 
 \section{Oma työ}
-joo kyl mäki tein jotain
+Aloitin \yt :hen tutustumisen selaamalla dokumentaatiota sekä cookbookia\footnote{\url{http://yt-project.org/docs/3.1/cookbook/}} ja ensin kopioimalla ja sittemmin muokkaamalla siellä annettuja malliohjelmia käyttäen esimerkkidataa. Tutustuin tarkimmin halkileikkauksiin, projektioihin ja 3D-renderöinteihin sekä muun muassa niiden akselien tekstien ja jaotuksen tai väriskaalojen muokkaamiseen. Lisäksi kokeilin \yt :n soveltamista animaatioiden tekemiseen.
 
+Opittuani perusasiat aloin soveltaa niitä tutkimusryhmämme tuottamaan dataan kaasupilven romahtamista suoraan mustaksi aukoksi koskevista simulaatioista (Regan et al. 2015). Samalla otin selvää \yt :n tarjoamista mahdollisuuksista usean plotin yhdistämiseksi yhteen kuvaan. Kun samaan kuvaan halutaan useantyyppisiä kuvia, tarvitaan \texttt{eps\_writer}-luokkaa. Sen tarjoama tuki profiileille oli kuitenkin puutteellinen, joten jouduin myös parantelemaan \yt :n lähdekoodia.
+
+\subsection{Plotit ja animaatiot}
+
+
+\subsection{Muutokset \yt :n lähdekoodissa}
 
 \section{Tulokset}
 tulostan tähän tuloksia
