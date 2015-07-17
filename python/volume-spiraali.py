@@ -4,7 +4,7 @@ import yt
 import numpy as np
 import math
 
-ds = yt.load("/data/scratch3/extragal/Enzo/data/LWIR/RD0076/RD0076")
+ds = yt.load("/data/dataset")
 ad = ds.all_data()
 
 v, tiheysmaksimi = ds.find_max("density")
@@ -29,5 +29,5 @@ frames = int(math.floor(2*math.pi/step))
 
 for i, snapshot in enumerate(cam.zoomin(7, frames, clip_ratio=8.0)):
     cam.rotate(0.05)
-    snapshot.write_png("kuvat/%04i.png" %frame)
+    snapshot.write_png("kuvat/volume-spiraali%04i.png" %frame)
     frame += 1
