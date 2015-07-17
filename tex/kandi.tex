@@ -32,7 +32,6 @@
 \setlength{\parindent}{0pt}
 \newcommand{\yt}{\texttt{yt}}
 
-
 % pythonjutut
 \usepackage{color}
 \usepackage{listings}
@@ -85,6 +84,7 @@ emphstyle={\color{self}\slshape},
 breaklines=true,
 postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
 }
+%\renewcommand{\lstlistingname}{Uusinimi} %TODO mieti tämä
 
 
 \begin{document}
@@ -224,9 +224,38 @@ Aloitin \yt :hen tutustumisen selaamalla dokumentaatiota sekä cookbookia\footno
 
 Opittuani perusasiat aloin soveltaa niitä tutkimusryhmämme tuottamaan dataan kaasupilven romahtamista suoraan mustaksi aukoksi koskevista simulaatioista (Regan et al. 2015). Samalla otin selvää \yt :n tarjoamista mahdollisuuksista usean plotin yhdistämiseksi yhteen kuvaan. Kun samaan kuvaan halutaan useantyyppisiä kuvia, tarvitaan \texttt{eps\_writer}-luokkaa. Sen tarjoama tuki profiileille oli kuitenkin puutteellinen, joten jouduin myös parantelemaan \yt :n lähdekoodia.
 
-\subsection{Plotit ja animaatiot}
+\subsection{Läpileikkaukset}
+Aloitin tutustumalla \yt :n yksinkertaisimpiin plotteihin aloittaen läpileikkauksista. Läpileikkausten luominen on tyypillisesti melko nopeaa, sillä niiden tekemiseksi täytyy käydä läpi vain ohut viipale datasetistä. Plotti luodaan hakemalla ensin tarvittava data datasetistä suurimmalla mahdollisella resoluutiolla \texttt{Fixed\-Resolution\-Buffer}-luokkaan (FRB), josta muodostetaan kuva käyttäjän määrittelemästä kohdasta. Samaa FRB:tä voidaan käyttää useiden kuvien renderöintiin. \cite{sliceproj}
 
+Läpileikkauksia voidaan käyttää yksittäisinä näyttämään jokin alue simulaatiosta tai niitä voidaan renderöidä useita ja koostaa niistä animaatio. Esimerkiksi listing \ref{koodi:flythrough} lukee annetun datasetin ja tallentaa läpileikkauksen tiheyksistä simulaation tiheimmän kohdan ympäriltä sadasta kohdasta liikkuen z-akselia pitkin 1 kpc matkan.
 
+Lisäksi plotin colorbarin alueeksi asetetaan \SI{3e-26}{} -- \SI{2.5e-25}{\gram\per\cubic\centi\metre} ja colormapiksi hot\footnote{\url{http://yt-project.org/doc/visualizing/colormaps/}}. Lisäksi akseleilla käytettävän fontin kokoa kasvatetaan ja lopullinen kuva tallennetaan juoksevaa numerointia käyttäen. Neljä tasaisin välein sadasta tuloksena saatavasta plotista valittua läpileikkausta on nähtävissä kuvassa \ref{fig:flythrough}.
+
+\begin{minipage}{\linewidth}
+\lstinputlisting[style=python, caption={Python-ohjelma, joka tallentaa 100 esimerkiksi animoitavaksi sopivaa framea, joissa sivultaan 3 kpc oleva läpileikkaus liikkuu simulaation z-akselin suunnassa läpi simulaation tiheimmän kohdan.}, label={koodi:flythrough}]{../python/flythrough.py}
+\end{minipage}
+
+\begin{figure}
+   \centering
+   \begin{subfigure}[b]{0.48\textwidth}
+       \includegraphics[width=\textwidth]{../kuvat/flythrough/0000.png}
+   \end{subfigure}
+   \begin{subfigure}[b]{0.48\textwidth}
+       \includegraphics[width=\textwidth]{../kuvat/flythrough/0032.png}
+   \end{subfigure}
+   \begin{subfigure}[b]{0.48\textwidth}
+       \includegraphics[width=\textwidth]{../kuvat/flythrough/0066.png}
+   \end{subfigure}
+   \begin{subfigure}[b]{0.48\textwidth}
+       \includegraphics[width=\textwidth]{../kuvat/flythrough/0099.png}
+   \end{subfigure}
+   \caption{Neljä listingissä \ref{koodi:flythrough} esitetyn koodin tallentamista kuvista, kun se ajetaan julkaisua Regan et al. 2015 varten lasketulla datalla.}\label{fig:flythrough}
+\end{figure}
+
+\subsection{Projektiot}
+Projektioiden luominen \yt :llä onnistuu pääpiirteissään samalla tavoin kuin läpileikkaustenkin. Projektiossa % täytyy käydä läpi koko näkösäde, kestää kauemman, kaavat eri tavoista
+
+\subsection{3D}
 
 \subsection{Muutokset \yt :n lähdekoodissa}
 
@@ -244,8 +273,8 @@ paska työ mutta tulipahan tehtyä
 
 \appendix
 \newpage
-\section{Projektion kiertäminen} \label{koodi:kaanto-projection}
-\lstinputlisting[style=python]{../python/kaanto-projection.py}
+\section{Läpilento} \label{koodi:kaanto-projection}
+\lstinputlisting[style=python]{../python/flythrough.py}
 \newpage
 \section{3D-animaatio spiraaliradlla lähestyen} \label{koodi:volume-spiraali}
 \lstinputlisting[style=python]{../python/volume-spiraali.py}
