@@ -265,6 +265,19 @@ Projektiota luotaessa pikselien arvot voidaan määrittää usealla eri tavalla.
 
 Muita mahdollisia projisointitapoja ovat ovat \texttt{mip} ja \texttt{sum}. Näistä ensimmäinen valitsee projisoitavan kentän maksimiarvon kullakin näkösäteellä ja jälkimmäinen integroinnin sijaan summaa kentän arvot näkösäteellä ottamatta huomioon kuljetun polun pituutta. \texttt{sum} sopiikin käytettäväksi vain sellaisten gridien kanssa, joiden solut ovat vakiokokoisia, sillä muuten syntyvä kuva saattaa olla hyvin epäfysikaalinen. Kumpikin säilyttää alkuperäisen kentän yksiköt. \cite{sliceproj, projection}
 
+Listing \ref{koodi:projection} 
+
+\begin{minipage}{\linewidth}
+\lstinputlisting[style=python, caption={Yksinkertaisen projektion luomiseen soveltuva ohjelma. Käytetty alue datassa on sama kuin listingissä \ref{koodi:flythrough}, mutta useiden läpileikkausten sijaan luodaan yksi projektio.}, label={koodi:projection}]{../python/projection.py}
+\end{minipage}
+
+\begin{figure}
+   \centering
+   \includegraphics[width=.7\textwidth]{../kuvat/projection.png}
+   \caption{Listingin \ref{koodi:projection} luoma projektio. Verrattuna kuvan \ref{fig:flythrough} läpileikkauksiin nähdään vähemmän yksityiskohtia, mutta projektio antaa paremman kokonaiskuvan koko alueesta kerralla.} \label{fig:projection}
+\end{figure}
+
+
 \subsection{3D}
 
 \subsection{Muutokset \yt :n lähdekoodissa}
