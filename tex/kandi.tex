@@ -176,7 +176,7 @@ Hilojen edistämistä jatketaan näin, edistäen aina tason $l$ hiloja, kunnes n
 \subsection{Käyttäjän ja simulaatiodatan välinen rajapinta}
 \yt\ abstrahoi hyvin voimakkaasti lukemansa datan, jolloin käyttäjä voi keksittyä fysikaalisiin rakenteisiin, joita simulaatio edustaa. Kun käyttäjä on ladannut datan muistiin, voi siitä tarkastella esimerkiksi pallomaista aluetta antamalla alueen keskustan koordinaatit ja pallon säteen ilman, että käyttäjän tarvitsee esimerkiksi etsiä niitä hiloja, jotka kattavat alueen parhaalla mahdollisella resoluutiolla tai tietää, missä tiedostoissa data on tallennettuna. Lisäksi \yt\ huolehtii yksikkömuunnoksista. \cite{yt}
 
-Koska dataa käsitellään abstrakteina olioina, voidaan samaa ohjelmaa käyttää myös eri simulaatioista saadun datan kanssa vaihtamalla luettavaa datasettiä. Esimerkiksi alla oleva koodisegmentti lataa kansiossa "data" olevan simulaation muistiin ja plottaa sen jälkeen sivultaan 500 kpc olevan alueen poikkileikkauksen tiheyden ja tallentaa sen. Ohjelma ei ota kantaa luettavan datan muotoon, ja onkin siksi helposti käytettävissä minkä tahansa datasetin kanssa, jota \yt\ tukee. \cite{yt, cookbook}
+Koska dataa käsitellään abstrakteina olioina, voidaan samaa ohjelmaa käyttää myös eri simulaatioista saadun datan kanssa vaihtamalla luettavaa datasettiä. Esimerkiksi alla oleva koodisegmentti lataa kansiossa "data"\ olevan simulaation muistiin ja plottaa sen jälkeen sivultaan 500 kpc olevan alueen poikkileikkauksen tiheyden ja tallentaa sen. Ohjelma ei ota kantaa luettavan datan muotoon, ja onkin siksi helposti käytettävissä minkä tahansa datasetin kanssa, jota \yt\ tukee. \cite{yt, cookbook}
 
 \begin{minipage}{\textwidth}
 \begin{verbatim}
@@ -252,8 +252,18 @@ Lisäksi plotin colorbarin alueeksi asetetaan \SI{3e-26}{} -- \SI{2.5e-25}{\gram
    \caption{Neljä listingissä \ref{koodi:flythrough} esitetyn koodin tallentamista kuvista, kun se ajetaan julkaisua Regan et al. 2015 varten lasketulla datalla.}\label{fig:flythrough}
 \end{figure}
 
-\subsection{Projektiot}
-Projektioiden luominen \yt :llä onnistuu pääpiirteissään samalla tavoin kuin läpileikkaustenkin. Projektiossa % täytyy käydä läpi koko näkösäde, kestää kauemman, kaavat eri tavoista
+\subsection{Projektiot} %TODO mieti pitäisikö ekat 3 kappaletta poistaa tai siirtää, eivät varsinaisesti liity omaan työhön
+Projektioiden luominen \yt :llä onnistuu pääpiirteissään samalla tavoin kuin läpi\-leik\-kaus\-ten\-kin. Projektiota luotaessa täytyy käydä läpi koko näkösäde kutakin lopullisen kuvan pikseliä kohden, joten niiden luominen on tyypillisesti hieman hitaampaa kuin läpi\-leikkausten. Ne tuovat kuitenkin usein läpileikkauksia paremmin esiin näkösäteen suunnassa laajempia rakenteita. \cite{sliceproj}
+
+Projektiota luotaessa pikselien arvot voidaan määrittää usealla eri tavalla. Yleisimpiä näistä ovat painotettu ja painottamaton integrointi, joka määritetään asettamalla \texttt{method= integrate}. Mikäli \texttt{weight\_field}-parametria ei ole asetettu, lasketaan painottamaton keskiarvo yhtälön \ref{equ:unweighted} mukaisesti integroimalla haluttu kenttä $f(x)$ näkösäteen $\hat{n}$ suunnassa tutkittavan alueen yli. Tällöin projisoidun kentän yksikkö on alkuperäisen kentän yksikkö kerrottuna pituusyksiköllä. Mikäli \texttt{weight\_field} on määritelty, lasketaan kentän painotettu keskiarvo yhtälön \ref{equ:weighted} mukaisesti. Tällöin myös yksikkö säilyy projisoinnissa samana.\cite{sliceproj} %TODO keyword ei ole sana. avainsana? \cite{sliceproj, projection}
+\begin{equation}\label{equ:unweighted}
+	g(X) = {\int\ {f(x)\hat{n}\cdot{dx}}}
+\end{equation}
+\begin{equation}\label{equ:weighted}
+	g(X) = \frac{\int\ {f(x)w(x)\hat{n}\cdot{dx}}}{\int\ {w(x)\hat{n}\cdot{dx}}}
+\end{equation}
+
+Muita mahdollisia projisointitapoja ovat ovat \texttt{mip} ja \texttt{sum}. Näistä ensimmäinen valitsee projisoitavan kentän maksimiarvon kullakin näkösäteellä ja jälkimmäinen integroinnin sijaan summaa kentän arvot näkösäteellä ottamatta huomioon kuljetun polun pituutta. \texttt{sum} sopiikin käytettäväksi vain sellaisten gridien kanssa, joiden solut ovat vakiokokoisia, sillä muuten syntyvä kuva saattaa olla hyvin epäfysikaalinen. Kumpikin säilyttää alkuperäisen kentän yksiköt. \cite{sliceproj, projection}
 
 \subsection{3D}
 
@@ -269,7 +279,7 @@ paska työ mutta tulipahan tehtyä
 
 %%%%% Sisältö loppuu, lähdeluettelo %%%%%
 \bibliographystyle{plain}
-\bibliography{lahteet}
+\bibliography{lahteet} %TODO yt api on pienellä
 
 \appendix
 \newpage
