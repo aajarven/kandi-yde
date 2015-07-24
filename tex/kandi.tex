@@ -279,7 +279,10 @@ Listingissä \ref{koodi:projection} on esitetty yksinkertaisen projektion tallen
 
 
 \subsection{3D}
-dipapdai \cite{volume}
+\yt\ tarjoaa myös mahdollisuuden kolmiulotteisten rakenteiden tarkastelemiseen tilavuusrenderöimällä. Kuten kaksiulotteisissakin ploteissa myös tilavuusrenderöinnissä voidaan käyttää mitä tahansa simulaatiodatan kenttää, jolloin esimerkiksi katselusuuntaa kääntämällä tai zoomaamalla kohti kiinnostavia alueita voidaan simulaation kiinnostavia piirteitä tuoda esiin joissain tilanteissa havainnollisemmin kuin läpileikkauksilla tai projektioilla. \cite{volume}
+
+Tilavuusrenderöintiä varten on ensin luotava color transfer function, %TODO mikä suomeksi?
+jonka perusteella määritetään tarkasteltavan tilavuuden emissio ja absorptio kussakin RGBA-värijärjestelmän kaistassa. Ne voi määrätä mikä tahansa simulaation kenttä joko painottamattomana tai painotettuna toisella kentällä. Täten color transfer function määrää kunkin pisteen värin paikan funktiona siten, että $f(v) \rightarrow (r, g, b, a)$. \cite{volume}
 
 
 \subsection{Muutokset \yt :n lähdekoodissa}
