@@ -12,3 +12,4 @@
 *.bak
 *.nfs*
 *~
+python/kuvat/
