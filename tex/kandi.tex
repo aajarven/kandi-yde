@@ -101,28 +101,7 @@ postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}
 
 %%%%%%%%%%%%%%% Oleellinen sisältö alkaa%%%%%%%%%%%%%%%
 \section{Johdanto}
-%TODO http://arxiv.org/pdf/astro-ph/0403044v1.pdf hyvä soossi
-
-%Teoreettista teoriaa. Täällä tarvitaan myös yhtälöitä, yhtälö \ref{esimerkkiyhtalo} on yksi sellainen.
-%
-%\begin{equation}\label{esimerkkiyhtalo}
-%	c=\sqrt{a^2+b^2}
-%\end{equation}
-
-%\begin{align} % &-merkki kertoo mitkä kohdat laitetaan päällekkäin
-%s_{1} =& d \cos \alpha = d \cos (90 \,^{\circ} - \varphi) = d \sin \varphi \label{align1} \\
-%s_{2} =& d \cos \beta = d \cos (90 \,^{\circ} - \theta) = d \sin \theta \label{align2},
-%\end{align}
-%\begin{align}
-%\lambda&=\frac s n \nonumber \\
-%&= \frac{s_1-s_2}{n} \nonumber \\
-%&= \frac{d}{n} ( \sin \varphi - \sin \theta ) \label{sievennystulos}
-%\end{align}
-
-%\begin{equation*}
-%	\sin{x} \approx x \text{ kun x on pieni}
-%\end{equation*}
-
+%TODO http://arxiv.org/pdf/astro-ph/0403044v1.pdf hyvä soossi?
 
 \section{Enzo}
 Enzo on astrofysikaalisten fluidien simulointiin käytettävä ilmainen ja avoin simulaatiokoodi, joka on suunniteltu kosmologisten rakenteiden simulointiin. Se tukee muun muassa hydrodynamiikkaa, ideaalista ja epäideaalista magnetohydrodynamiikkaa, N kappaleen simulaatioita, kaasupilvien kemiaa, säteilynkuljetusta, tähtien syntyä sekä maailmankaikkeuden laajenemista. \cite{enzo} %TODO tukeminen tyhmästi sanottu
@@ -178,7 +157,7 @@ Hilojen edistämistä jatketaan näin, edistäen aina tason $l$ hiloja, kunnes n
 
 Koska dataa käsitellään abstrakteina olioina, voidaan samaa ohjelmaa käyttää myös eri simulaatioista saadun datan kanssa vaihtamalla luettavaa datasettiä. Esimerkiksi alla oleva koodisegmentti lataa kansiossa "data"\ olevan simulaation muistiin ja plottaa sen jälkeen sivultaan 500 kpc olevan alueen poikkileikkauksen tiheyden ja tallentaa sen. Ohjelma ei ota kantaa luettavan datan muotoon, ja onkin siksi helposti käytettävissä minkä tahansa datasetin kanssa, jota \yt\ tukee. \cite{yt, cookbook}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\textwidth} %TODO sama tyyli kuin muissakin pythoneissa
 \begin{verbatim}
 import yt
 dataset = yt.load("data")
@@ -189,7 +168,7 @@ plot.save("slice.png")
 
 Simulaatiodatassa olevien tietojen lisäksi \yt\ pystyy laskemaan datasta myös monia muita suureita kuten vaikkapa kulmaliikemäärän, maksimi- ja minimiarvoja sekä niiden sijainteja tai massakeskipisteen sijainnin. Lisäksi käyttäjän on mahdollista luoda omia kenttiä. Alla on esimerkki koodinpätkästä, jolla lisättäisiin paine \yt :n tuntemien kenttien joukkoon. Uudelle kentälle määritellään nimen ja funktion lisäksi myös yksikkö. \cite{yt, cookbook}
 
-\begin{minipage}{\textwidth}
+\begin{minipage}{\textwidth} %TODO sama tyyli kuin muissakin pythoneissa
 \begin{verbatim}
 def _pressure(field, data):
     return (data.ds.gamma - 1.0) * data["density"] * data["thermal_energy"]
