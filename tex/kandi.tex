@@ -257,6 +257,8 @@ Listingissä \ref{koodi:projection} on esitetty yksinkertaisen projektion tallen
 Tilavuusrenderöintiä varten on ensin luotava color transfer function, %TODO mikä suomeksi?
 jonka perusteella määritetään tarkasteltavan tilavuuden emissio ja absorptio kussakin RGBA-värijärjestelmän kaistassa. Ne voi määrätä mikä tahansa simulaation kenttä joko painottamattomana tai painotettuna toisella kentällä. Täten color transfer function määrää kunkin pisteen värin paikan funktiona siten, että $f(v) \rightarrow (r, g, b, a)$. \cite{volume}
 
+Seuraavaksi luodaan \texttt{camera}-olio, jolloin datalohkot jaetaan kuvattavan alueen täysin kattaviin ''tiiliin'' (\textit{bricks}), joihin valitaan parhaan mahdollisen resoluution data jokaisesta pisteestä. Nämä tiilet järjestetään näkösäteen suunnassa takaa eteen, jotta ne on helppo käydä läpi siinä järjestyksessä, jossa silmään saapuva säde kohtaa ne. Seuraavaksi luodaan kuvatason kanssa yhdensuuntainen taso säteitä kuvattavan alueen perälle alkuarvolla nolla. 
+
 \subsection{\texttt{eps\_writer}}
 
 \subsection{Muutokset \yt :n lähdekoodissa} %subsubsection?
