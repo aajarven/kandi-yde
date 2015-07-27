@@ -4,7 +4,7 @@ import yt
 import numpy as np
 import math
 
-ds = yt.load("/data/dataset")
+ds = yt.load("data/dataset")
 ad = ds.all_data()
 
 v, tiheysmaksimi = ds.find_max("density")

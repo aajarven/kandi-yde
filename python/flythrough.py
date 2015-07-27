@@ -3,7 +3,7 @@
 import yt
 import numpy as np
 
-ds = yt.load("/data/scratch3/extragal/Enzo/data/LWIR/RD0076/RD0076")
+ds = yt.load("data/dataset")
 v, maxtiheys = ds.find_max("density")
 frame = 0
 
