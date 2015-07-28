@@ -192,6 +192,9 @@ Vaikka simulaation tila voidaan tarvittaessa tallentaa vaikka jokaisen aika-aske
 
 Kun simulaation outputteja ei tarvitse tallentaa visualisointia varten, voidaan kuvia tai plotteja tallentaa huomattavasti useammin ja saavutetaan huomattavasti parempi tarvittavan tallennustilan ja tallennetun hyödyllisen informaation määrän suhde, sillä simulaation outputin koko liikkuu usein gigatavujen luokassa kun taas esimerkiksi kuvat ovat vain joitain kymmeniä tai satoja kilotavuja. Tyypillisesti dataa redusoidaan voimakkaasti joka tapauksessa, joten alkuperäisen outputin tallentaminen ei välttämättä ole mielekästä niin usein kuin esimerkiksi sulavan animaation tuottamiseksi on tarpeen. \cite{yt}
 
+\subsection{Kuvien renderöiminen}
+%TODO siirrä tänne oman työn alta se, mikä ei sinne kuulu
+
 \section{Oma työ}
 Aloitin \yt :hen tutustumisen selaamalla dokumentaatiota sekä cookbookia\footnote{\url{http://yt-project.org/docs/3.1/cookbook/}} ja ensin kopioimalla ja sittemmin muokkaamalla siellä annettuja malliohjelmia käyttäen esimerkkidataa. Tutustuin tarkimmin halkileikkauksiin, projektioihin ja 3D-renderöinteihin sekä muun muassa niiden akselien tekstien ja jaotuksen tai väriskaalojen muokkaamiseen. Lisäksi kokeilin \yt :n soveltamista animaatioiden tekemiseen.
 
@@ -261,11 +264,13 @@ jonka perusteella määritetään tarkasteltavan tilavuuden emissio ja absorptio
 Seuraavaksi luodaan \texttt{camera}-olio, jolloin datalohkot jaetaan kuvattavan alueen täysin kattaviin ''tiiliin'' (\textit{bricks}), joihin valitaan parhaan mahdollisen resoluution data jokaisesta pisteestä. Nämä tiilet järjestetään näkösäteen suunnassa takaa eteen, jotta ne on helppo käydä läpi siinä järjestyksessä, jossa silmään saapuva säde kohtaa ne. Seuraavaksi luodaan kuvatason kanssa yhdensuuntainen taso säteitä kuvattavan alueen perälle alkuarvolla nolla. Näitä säteitä liikutetaan kohti katsojaa ja pikselien arvot päivitetään kullakin askeleella. \cite{volume}
 
 \begin{sloppypar}
-Kullekin tiilelle lasketaan, mitkä säteet leikkaavat sen. Kustakin säteestä otetaan \texttt{sub\_samples}-parametrilla määrättävä määrä näytteitä (oletusarvoisesti 5) ja arvot näytteenottokohdissa lasketaan solun kärkien arvoista trilineaarisella interpoloinnilla. Tämän jälkeen kussakin pisteessä lasketaan transfer function arvo, jolloin saadaan emission $j$ ja absorption $\alpha$ voimakkuus kussakin kaistassa. Näiden perusteella kullekin pikselille lasketaan uusi arvo ottaen huomioon säteen kulkema matka. Pikselin uusi arvo $v^{n+1}$ kaistassa $i$ saadaan pikselin aiemman arvon $v^n$ perusteella yhtälöstä \ref{equ:3d} kun $\Delta s$ on säteen kulkema matka näytteenottopisteiden välillä.
+Kullekin tiilelle lasketaan, mitkä säteet leikkaavat sen. Kustakin säteestä otetaan \texttt{sub\_samples}-parametrilla määrättävä määrä näytteitä (oletusarvoisesti 5) ja arvot näytteenottokohdissa lasketaan solun kärkien arvoista trilineaarisella interpoloinnilla. Tämän jälkeen kussakin pisteessä lasketaan transfer function arvo, jolloin saadaan emission $j$ ja absorption $\alpha$ voimakkuus kussakin kaistassa. Näiden perusteella kullekin pikselille lasketaan uusi arvo ottaen huomioon säteen kulkema matka. Pikselin uusi arvo $v^{n+1}$ kaistassa $i$ saadaan pikselin aiemman arvon $v^n$ perusteella yhtälöstä \ref{equ:3d}, jossa $\Delta s$ on säteen kulkema matka näytteenottopisteiden välillä.
 \begin{equation}\label{equ:3d}
 v^{n+1}_{i} =  j_{i}\Delta s + (1 - \alpha_{i}\Delta s )v^{n}_{i}
 \end{equation}
 \end{sloppypar}
+
+
 
 \subsection{\texttt{eps\_writer}}
 
