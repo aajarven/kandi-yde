@@ -51,6 +51,11 @@
 \definecolor{Operators}{rgb}{0,0,0}
 \definecolor{Background}{rgb}{0.98,0.98,0.98}
 
+\lstset{
+  literate={ö}{{\"o}}1
+           {ä}{{\"a}}1
+           {ü}{{\"u}}1
+}
 \lstdefinestyle{python}{
 numbers=left,
 numberstyle=\footnotesize,
@@ -192,8 +197,39 @@ Vaikka simulaation tila voidaan tarvittaessa tallentaa vaikka jokaisen aika-aske
 
 Kun simulaation outputteja ei tarvitse tallentaa visualisointia varten, voidaan kuvia tai plotteja tallentaa huomattavasti useammin ja saavutetaan huomattavasti parempi tarvittavan tallennustilan ja tallennetun hyödyllisen informaation määrän suhde, sillä simulaation outputin koko liikkuu usein gigatavujen luokassa kun taas esimerkiksi kuvat ovat vain joitain kymmeniä tai satoja kilotavuja. Tyypillisesti dataa redusoidaan voimakkaasti joka tapauksessa, joten alkuperäisen outputin tallentaminen ei välttämättä ole mielekästä niin usein kuin esimerkiksi sulavan animaation tuottamiseksi on tarpeen. \cite{yt}
 
-\subsection{Kuvien renderöiminen}
-%TODO siirrä tänne oman työn alta se, mikä ei sinne kuulu
+\subsection{Kuvien luominen}
+\yt\ piilottaa paljon plottien luomiseen tarvittavista esimerkiksi datan tallennusmuotoon tai numeeristen arvojen väreiksi muuttamiseen liittyvistä toimista. On kuitenkin ohjelman suorituskyvyn ja tuotettujen kuvien ymmärtämisen kannalta tärkeää ymmärtää jonkin verran myös \yt :n toimintaa. Alla on eritelty muutamien kuvien luomisen mekaniikkaa hieman käyttäjälle näytettävää pintaa syvemmältä.
+
+\subsubsection{Läpileikkaukset ja projektiot}
+Läpileikkausten ja projektioiden luominen \yt :llä on pääpiirteissään melko samanlaista, tärkeimpänä erona käsiteltävän data-alueen laajuus. Läpi\-leikkausten luominen on tyypillisesti melko nopeaa, sillä niiden tekemiseksi täytyy käydä läpi vain ohut viipale datasetistä. Plotti luodaan hakemalla ensin tarvittava data datasetistä suurimmalla mahdollisella resoluutiolla \texttt{Fixed\-Resolution\-Buffer}-luokkaan (FRB), josta muodostetaan kuva käyttäjän määrittelemästä kohdasta. Samaa FRB:tä voidaan käyttää useiden kuvien renderöintiin mikäli kuvaa halutaan esimerkiksi zoomata tai panoroida. Tämä nopeuttaa kuvien luomista hieman. \cite{sliceproj}
+
+Projektioiden luominen \yt :llä onnistuu pääpiirteissään samalla tavoin kuin läpi\-leik\-kaus\-ten\-kin. Projektiota luotaessa täytyy käydä läpi koko näkösäde kutakin lopullisen kuvan pikseliä kohden, joten niiden luominen on tyypillisesti hieman hitaampaa kuin läpi\-leikkausten. Ne tuovat kuitenkin usein läpileikkauksia paremmin esiin näkösäteen suunnassa laajempia rakenteita. Kuten läpileikkauksiakin, myös projektioita voi tehdä myös muissa kuin simulaation koordinattiakselien suunnissa käyttäen \texttt{OffAxisProjectionPlot}-luokkaa. \cite{sliceproj}
+
+\begin{sloppypar}Projektiota luotaessa pikselien arvot voidaan määrittää usealla eri tavalla. Yleisimpiä näistä ovat painotettu ja painottamaton integrointi, joka määritetään asettamalla \texttt{method=integrate}. Mikäli \texttt{weight\_field}-parametria ei ole asetettu, lasketaan painottamaton keskiarvo yhtälön \ref{equ:unweighted} mukaisesti integroimalla haluttu kenttä $f(x)$ näkösäteen $\hat{n}$ suunnassa tutkittavan alueen yli. Tällöin projisoidun kentän yksikkö on alkuperäisen kentän yksikkö kerrottuna pituusyksiköllä. Mikäli \texttt{weight\_field} on määritelty, lasketaan kentän painotettu keskiarvo yhtälön \ref{equ:weighted} mukaisesti. Tällöin myös yksikkö säilyy projisoinnissa samana. \cite{sliceproj}
+\begin{equation}\label{equ:unweighted}
+	g(X) = {\int\ {f(x)\hat{n}\cdot{dx}}}
+\end{equation}
+\begin{equation}\label{equ:weighted}
+	g(X) = \frac{\int\ {f(x)w(x)\hat{n}\cdot{dx}}}{\int\ {w(x)\hat{n}\cdot{dx}}}
+\end{equation}
+\end{sloppypar} 
+
+Muita mahdollisia projisointitapoja ovat ovat \texttt{mip} ja \texttt{sum}. Näistä ensimmäinen valitsee projisoitavan kentän maksimiarvon kullakin näkösäteellä ja jälkimmäinen integroinnin sijaan summaa kentän arvot näkösäteellä ottamatta huomioon kuljetun polun pituutta. Siksi \texttt{sum} sopiikin käytettäväksi vain sellaisten gridien kanssa, joiden solut ovat vakiokokoisia, sillä muuten syntyvä kuva saattaa olla hyvin epäfysikaalinen. Kumpikin säilyttää alkuperäisen kentän yksiköt. \cite{sliceproj, projection}
+
+\subsubsection{3D}
+\yt\ tarjoaa myös mahdollisuuden kolmiulotteisten rakenteiden tarkastelemiseen tilavuusrenderöimällä. Kuten kaksiulotteisissakin ploteissa myös tilavuusrenderöinnissä voidaan käyttää mitä tahansa simulaatiodatan kenttää, jolloin esimerkiksi katselusuuntaa kääntä\-mällä tai zoomaamalla kohti kiinnostavia alueita voidaan simulaation kiinnostavia piirteitä tuoda esiin joissain tilanteissa havainnollisemmin kuin läpileikkauksilla tai projektioilla. \cite{volume}
+
+Tilavuusrenderöintiä varten on ensin luotava color transfer function, %TODO mikä suomeksi?
+jonka perusteella määritetään tarkasteltavan tilavuuden emissio ja absorptio kussakin RGBA-väri\-järjes\-telmän kaistassa. Ne voi määrätä mikä tahansa simulaation kenttä joko painottamattomana tai painotettuna toisella kentällä. Täten color transfer function määrää kunkin pisteen värin paikan funktiona siten, että $f(v) \rightarrow (r, g, b, a)$. \cite{volume}
+
+Seuraavaksi luodaan \texttt{camera}-olio, jolloin datalohkot jaetaan kuvattavan alueen täysin kattaviin ''tiiliin'' (\textit{bricks}), joihin valitaan parhaan mahdollisen resoluution data jokaisesta pisteestä. Nämä tiilet järjestetään näkösäteen suunnassa takaa eteen, jotta ne on helppo käydä läpi siinä järjestyksessä, jossa silmään saapuva säde kohtaa ne. Seuraavaksi luodaan kuvatason kanssa yhdensuuntainen taso säteitä kuvattavan alueen perälle alkuarvolla nolla. Näitä säteitä liikutetaan kohti katsojaa ja pikselien arvot päivitetään kullakin askeleella. \cite{volume}
+
+\begin{sloppypar}
+Kullekin tiilelle lasketaan, mitkä säteet leikkaavat sen. Kustakin säteestä otetaan \texttt{sub\_samples}-parametrilla määrättävä määrä näytteitä (oletusarvoisesti 5) ja arvot näytteenottokohdissa lasketaan solun kärkien arvoista trilineaarisella interpoloinnilla. Tämän jälkeen kussakin pisteessä lasketaan transfer function arvo, jolloin saadaan emission $j$ ja absorption $\alpha$ voimakkuus kussakin kaistassa. Näiden perusteella kullekin pikselille lasketaan uusi arvo ottaen huomioon säteen kulkema matka. Pikselin uusi arvo $v^{n+1}$ kaistassa $i$ saadaan pikselin aiemman arvon $v^n$ perusteella yhtälöstä \ref{equ:3d}, jossa $\Delta s$ on säteen kulkema matka näytteenottopisteiden välillä.
+\begin{equation}\label{equ:3d}
+v^{n+1}_{i} =  j_{i}\Delta s + (1 - \alpha_{i}\Delta s )v^{n}_{i}
+\end{equation}
+\end{sloppypar}
 
 \section{Oma työ}
 Aloitin \yt :hen tutustumisen selaamalla dokumentaatiota sekä cookbookia\footnote{\url{http://yt-project.org/docs/3.1/cookbook/}} ja ensin kopioimalla ja sittemmin muokkaamalla siellä annettuja malliohjelmia käyttäen esimerkkidataa. Tutustuin tarkimmin halkileikkauksiin, projektioihin ja 3D-renderöinteihin sekä muun muassa niiden akselien tekstien ja jaotuksen tai väriskaalojen muokkaamiseen. Lisäksi kokeilin \yt :n soveltamista animaatioiden tekemiseen.
@@ -201,9 +237,7 @@ Aloitin \yt :hen tutustumisen selaamalla dokumentaatiota sekä cookbookia\footno
 Opittuani perusasiat aloin soveltaa niitä tutkimusryhmämme tuottamaan dataan kaasupilven romahtamista suoraan mustaksi aukoksi koskevista simulaatioista (Regan et al. 2015). Samalla otin selvää \yt :n tarjoamista mahdollisuuksista usean plotin yhdistämiseksi yhteen kuvaan. Kun samaan kuvaan halutaan useantyyppisiä kuvia, tarvitaan \texttt{eps\_writer}-luokkaa. Sen tarjoama tuki profiileille oli kuitenkin puutteellinen, joten jouduin myös parantelemaan \yt :n lähdekoodia.
 
 \subsection{Läpileikkaukset}
-Aloitin tutustumalla \yt :n yksinkertaisimpiin plotteihin aloittaen läpileikkauksista. Läpi\-leikkausten luominen on tyypillisesti melko nopeaa, sillä niiden tekemiseksi täytyy käydä läpi vain ohut viipale datasetistä. Plotti luodaan hakemalla ensin tarvittava data datasetistä suurimmalla mahdollisella resoluutiolla \texttt{Fixed\-Resolution\-Buffer}-luokkaan (FRB), josta muodostetaan kuva käyttäjän määrittelemästä kohdasta. Samaa FRB:tä voidaan käyttää useiden kuvien renderöintiin mikäli kuvaa halutaan esimerkiksi zoomata tai panoroida. Tämä nopeuttaa kuvien luomista hieman. \cite{sliceproj}
-
-Läpileikkauksia voidaan käyttää yksittäisinä näyttämään jokin alue simulaatiosta tai niitä voidaan renderöidä useita ja koostaa niistä animaatio. Esimerkiksi listing \ref{koodi:flythrough} lukee annetun datasetin ja tallentaa läpileikkauksen tiheyksistä simulaation tiheimmän kohdan ympäriltä sadasta kohdasta liikkuen z-akselia pitkin 1 kpc matkan. Esimerkissä tarkastellaan kohdetta koordinaattiakselin suunnasta, mutta läpileikkauksia voidaan luoda mielivaltaisesta suunnasta \cite{sliceproj}.
+Aloitin tutustumalla \yt :n yksinkertaisimpiin plotteihin aloittaen läpileikkauksista. Niitä voidaan käyttää yksittäisinä näyttämään jokin alue simulaatiosta tai niitä voidaan renderöidä useita ja koostaa niistä animaatio. Esimerkiksi listing \ref{koodi:flythrough} lukee annetun datasetin ja tallentaa läpileikkauksen tiheyksistä simulaation tiheimmän kohdan ympäriltä sadasta kohdasta liikkuen z-akselia pitkin 1 kpc matkan. Esimerkissä tarkastellaan kohdetta koordinaattiakselin suunnasta, mutta läpileikkauksia voidaan luoda mielivaltaisesta suunnasta \cite{sliceproj}.
 
 Lisäksi plotin colorbarin alueeksi asetetaan \SI{3e-26}{} -- \SI{2.5e-25}{\gram\per\cubic\centi\metre} ja colormapiksi hot\footnote{\url{http://yt-project.org/doc/visualizing/colormaps/}}. Lisäksi akseleilla käytettävän fontin kokoa kasvatetaan ja lopullinen kuva tallennetaan juoksevaa numerointia käyttäen. Neljä sadasta tuloksena saatavista plotista tasaisin välein valittua läpileikkausta on nähtävissä kuvassa \ref{fig:flythrough}.
 
@@ -228,21 +262,12 @@ Lisäksi plotin colorbarin alueeksi asetetaan \SI{3e-26}{} -- \SI{2.5e-25}{\gram
    \caption{Neljä listingissä \ref{koodi:flythrough} esitetyn koodin tallentamista kuvista, kun se ajetaan julkaisua Regan et al. 2015 varten lasketulla datalla. Alueessa edetään syvemmälle riveittäin vasemmalta oikealle.}\label{fig:flythrough}
 \end{figure}
 
-\subsection{Projektiot} %TODO mieti pitäisikö ekat 3 kappaletta poistaa tai siirtää, eivät varsinaisesti liity omaan työhön
-Projektioiden luominen \yt :llä onnistuu pääpiirteissään samalla tavoin kuin läpi\-leik\-kaus\-ten\-kin. Projektiota luotaessa täytyy käydä läpi koko näkösäde kutakin lopullisen kuvan pikseliä kohden, joten niiden luominen on tyypillisesti hieman hitaampaa kuin läpi\-leikkausten. Ne tuovat kuitenkin usein läpileikkauksia paremmin esiin näkösäteen suunnassa laajempia rakenteita. Kuten läpileikkauksiakin, myös projektioita voi tehdä myös muissa kuin simulaation koordinattiakselien suunnissa käyttäen \texttt{OffAxisProjectionPlot}-luokkaa. \cite{sliceproj}
-
-\begin{sloppypar}Projektiota luotaessa pikselien arvot voidaan määrittää usealla eri tavalla. Yleisimpiä näistä ovat painotettu ja painottamaton integrointi, joka määritetään asettamalla \texttt{method=integrate}. Mikäli \texttt{weight\_field}-parametria ei ole asetettu, lasketaan painottamaton keskiarvo yhtälön \ref{equ:unweighted} mukaisesti integroimalla haluttu kenttä $f(x)$ näkösäteen $\hat{n}$ suunnassa tutkittavan alueen yli. Tällöin projisoidun kentän yksikkö on alkuperäisen kentän yksikkö kerrottuna pituusyksiköllä. Mikäli \texttt{weight\_field} on määritelty, lasketaan kentän painotettu keskiarvo yhtälön \ref{equ:weighted} mukaisesti. Tällöin myös yksikkö säilyy projisoinnissa samana. \cite{sliceproj}
-\begin{equation}\label{equ:unweighted}
-	g(X) = {\int\ {f(x)\hat{n}\cdot{dx}}}
-\end{equation}
-\begin{equation}\label{equ:weighted}
-	g(X) = \frac{\int\ {f(x)w(x)\hat{n}\cdot{dx}}}{\int\ {w(x)\hat{n}\cdot{dx}}}
-\end{equation}
-\end{sloppypar} 
-
-Muita mahdollisia projisointitapoja ovat ovat \texttt{mip} ja \texttt{sum}. Näistä ensimmäinen valitsee projisoitavan kentän maksimiarvon kullakin näkösäteellä ja jälkimmäinen integroinnin sijaan summaa kentän arvot näkösäteellä ottamatta huomioon kuljetun polun pituutta. Siksi \texttt{sum} sopiikin käytettäväksi vain sellaisten gridien kanssa, joiden solut ovat vakiokokoisia, sillä muuten syntyvä kuva saattaa olla hyvin epäfysikaalinen. Kumpikin säilyttää alkuperäisen kentän yksiköt. \cite{sliceproj, projection}
+\subsection{Projektiot}
+%TODO kirjoita uusi alku
 
 Listingissä \ref{koodi:projection} on esitetty yksinkertaisen projektion tallentava skripti. Se käyttää samaa simulaatiodataa kuin \ref{koodi:flythrough}, josta luodaan yksi projektio integroimalla $z$-akselin suuntaisen näkösäteen suunnassa. Skriptin tuottama kuva on nähtävissä kuvassa \ref{fig:projection}. Vertaamalla tätä kuvan \ref{fig:flythrough} läpileikkauksiin huomataan, että projisointi kadottaa näkösäteen suunnassa pienet yksityiskohdat, mutta projektiosta saa paremman kuvan suuremman skaalan rakenteista. Myös yksiköiden huomataan poikkeavan toisistaan, sillä projektiota luotaessa käytettiin painottamatonta integrointia.
+
+%TODO ehkä myös jotain vähän lisää nyt kun osa on siirretty pois?
 
 \begin{minipage}{\linewidth}
 \lstinputlisting[style=python, caption={Yksinkertaisen projektion luomiseen soveltuva ohjelma. Käytetty alue datassa on sama kuin listingissä \ref{koodi:flythrough}, mutta useiden läpileikkausten sijaan luodaan yksi projektio.}, label={koodi:projection}]{../python/projection.py}
@@ -256,20 +281,6 @@ Listingissä \ref{koodi:projection} on esitetty yksinkertaisen projektion tallen
 
 
 \subsection{3D}
-\yt\ tarjoaa myös mahdollisuuden kolmiulotteisten rakenteiden tarkastelemiseen tilavuusrenderöimällä. Kuten kaksiulotteisissakin ploteissa myös tilavuusrenderöinnissä voidaan käyttää mitä tahansa simulaatiodatan kenttää, jolloin esimerkiksi katselusuuntaa kääntä\-mällä tai zoomaamalla kohti kiinnostavia alueita voidaan simulaation kiinnostavia piirteitä tuoda esiin joissain tilanteissa havainnollisemmin kuin läpileikkauksilla tai projektioilla. \cite{volume}
-
-Tilavuusrenderöintiä varten on ensin luotava color transfer function, %TODO mikä suomeksi?
-jonka perusteella määritetään tarkasteltavan tilavuuden emissio ja absorptio kussakin RGBA-väri\-järjes\-telmän kaistassa. Ne voi määrätä mikä tahansa simulaation kenttä joko painottamattomana tai painotettuna toisella kentällä. Täten color transfer function määrää kunkin pisteen värin paikan funktiona siten, että $f(v) \rightarrow (r, g, b, a)$. \cite{volume}
-
-Seuraavaksi luodaan \texttt{camera}-olio, jolloin datalohkot jaetaan kuvattavan alueen täysin kattaviin ''tiiliin'' (\textit{bricks}), joihin valitaan parhaan mahdollisen resoluution data jokaisesta pisteestä. Nämä tiilet järjestetään näkösäteen suunnassa takaa eteen, jotta ne on helppo käydä läpi siinä järjestyksessä, jossa silmään saapuva säde kohtaa ne. Seuraavaksi luodaan kuvatason kanssa yhdensuuntainen taso säteitä kuvattavan alueen perälle alkuarvolla nolla. Näitä säteitä liikutetaan kohti katsojaa ja pikselien arvot päivitetään kullakin askeleella. \cite{volume}
-
-\begin{sloppypar}
-Kullekin tiilelle lasketaan, mitkä säteet leikkaavat sen. Kustakin säteestä otetaan \texttt{sub\_samples}-parametrilla määrättävä määrä näytteitä (oletusarvoisesti 5) ja arvot näytteenottokohdissa lasketaan solun kärkien arvoista trilineaarisella interpoloinnilla. Tämän jälkeen kussakin pisteessä lasketaan transfer function arvo, jolloin saadaan emission $j$ ja absorption $\alpha$ voimakkuus kussakin kaistassa. Näiden perusteella kullekin pikselille lasketaan uusi arvo ottaen huomioon säteen kulkema matka. Pikselin uusi arvo $v^{n+1}$ kaistassa $i$ saadaan pikselin aiemman arvon $v^n$ perusteella yhtälöstä \ref{equ:3d}, jossa $\Delta s$ on säteen kulkema matka näytteenottopisteiden välillä.
-\begin{equation}\label{equ:3d}
-v^{n+1}_{i} =  j_{i}\Delta s + (1 - \alpha_{i}\Delta s )v^{n}_{i}
-\end{equation}
-\end{sloppypar}
-
 
 
 \subsection{\texttt{eps\_writer}}
