@@ -12,6 +12,7 @@
 \usepackage{float}
 \usepackage[section]{placeins}
 \usepackage[nottoc,notlot,notlof]{tocbibind}
+\usepackage{fixltx2e}
 
 \usepackage{titlesec}
 \titleclass{\section}{top}
@@ -279,9 +280,12 @@ Listingissä \ref{koodi:projection} on esitetty yksinkertaisen projektion tallen
    \caption{Listingin \ref{koodi:projection} luoma projektio. Verrattuna kuvan \ref{fig:flythrough} läpileikkauksiin nähdään vähemmän yksityiskohtia, mutta projektio antaa paremman kokonaiskuvan koko alueesta kerralla.} \label{fig:projection}
 \end{figure}
 
+%TODO tällä haavaa päätelmiä on sekaisin omassa työssä
 
 \subsection{3D}
+Tilavuusrenderöinnit tuovat usein tutkittavan kohteen kolmiulotteisen rakenteen esiin projektioita ja läpileikkauksia intuitiivisemmin. Yksittäiset kuvat saattavat kuitenkin olla vaikeasti tulkittavia, sillä kohteiden etäisyyttä katsojasta on usein vaikeaa hahmottaa. Kuvista ja etenkin animaatioista on kuitenkin mahdollista saada erittäin näyttäviä.
 
+Liitteessä \ref{koodi:volume-spiraali} on esitetty skripti, jolla voidaan luoda framet animaatioon, jossa kamera sekä kiertää kohdetta että zoomaa sisään. Datan lataamisen jälkeen riveillä 10--13 etsitään datan tiheimmästä kohdasta korkeintaan 0,5 kpc päässä oleva paikka, jossa moelkulaarisen vedyn osuus kaikesta vedystä on suurin hyödyntämällä \yt :n tarjoamia \texttt{find\_max}- ja \texttt{max\_location}-funktioita.
 
 \subsection{\texttt{eps\_writer}}
 
@@ -304,6 +308,6 @@ tulostan tähän tuloksia
 %\section{Läpilento} \label{koodi:kaanto-projection}
 %\lstinputlisting[style=python]{../python/flythrough.py}
 \newpage
-\section{3D-animaatio spiraaliradalla lähestyen} \label{koodi:volume-spiraali}
+\section{3D-animaatio spiraaliradalla kohdetta lä\-hes\-tyen} \label{koodi:volume-spiraali}
 \lstinputlisting[style=python]{../python/volume-spiraali.py}
 \end{document}
