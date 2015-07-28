@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
-
 import yt
 
 ds = yt.load("data/dataset")
-
 v, keskusta = ds.find_max("density")
 vasen_kulma = keskusta + yt.YTArray([-1.5, -1.5, -0.5], 'kpc') 
 oikea_kulma = keskusta + yt.YTArray([1.5, 1.5, 0.5], 'kpc')

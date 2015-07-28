@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import yt
 import numpy as np
 
