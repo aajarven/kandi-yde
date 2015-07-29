@@ -88,6 +88,7 @@ keywordstyle={[2]\color{Decorators}\slshape},
 emph={self},
 emphstyle={\color{self}\slshape},
 breaklines=true,
+breakatwhitespace=true
 postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
 }
 %\renewcommand{\lstlistingname}{Uusinimi} %TODO mieti tämä
@@ -240,7 +241,7 @@ Opittuani perusasiat aloin soveltaa niitä tutkimusryhmämme tuottamaan dataan k
 \subsection{Läpileikkaukset}
 Aloitin tutustumalla \yt :n yksinkertaisimpiin plotteihin aloittaen läpileikkauksista. Niitä voidaan käyttää yksittäisinä näyttämään jokin alue simulaatiosta tai niitä voidaan renderöidä useita ja koostaa niistä animaatio. Esimerkiksi listing \ref{koodi:flythrough} lukee annetun datasetin ja tallentaa läpileikkauksen tiheyksistä simulaation tiheimmän kohdan ympäriltä sadasta kohdasta liikkuen z-akselia pitkin 1 kpc matkan. Esimerkissä tarkastellaan kohdetta koordinaattiakselin suunnasta, mutta läpileikkauksia voidaan luoda mielivaltaisesta suunnasta \cite{sliceproj}.
 
-Lisäksi plotin colorbarin alueeksi asetetaan \SI{3e-26}{} -- \SI{2.5e-25}{\gram\per\cubic\centi\metre} ja colormapiksi hot\footnote{\url{http://yt-project.org/doc/visualizing/colormaps/}}. Lisäksi akseleilla käytettävän fontin kokoa kasvatetaan ja lopullinen kuva tallennetaan juoksevaa numerointia käyttäen. Neljä sadasta tuloksena saatavista plotista tasaisin välein valittua läpileikkausta on nähtävissä kuvassa \ref{fig:flythrough}.
+Lisäksi plotin väripalkin alueeksi asetetaan \SI{3e-26}{} -- \SI{2.5e-25}{\gram\per\cubic\centi\metre} ja colormapiksi hot\footnote{\url{http://yt-project.org/doc/visualizing/colormaps/}}. Lisäksi akseleilla käytettävän fontin kokoa kasvatetaan ja lopullinen kuva tallennetaan juoksevaa numerointia käyttäen. Neljä sadasta tuloksena saatavista plotista tasaisin välein valittua läpileikkausta on nähtävissä kuvassa \ref{fig:flythrough}.
 
 \begin{minipage}{\linewidth}
 \lstinputlisting[style=python, caption={Python-ohjelma, joka tallentaa 100 esimerkiksi animoitavaksi sopivaa framea, joissa sivultaan 3 kpc oleva läpileikkaus liikkuu simulaation z-akselin suunnassa läpi simulaation tiheimmän kohdan.}, label={koodi:flythrough}]{../python/flythrough.py}
@@ -285,19 +286,17 @@ Listingissä \ref{koodi:projection} on esitetty yksinkertaisen projektion tallen
 \subsection{3D}
 Tilavuusrenderöinnit tuovat usein tutkittavan kohteen kolmiulotteisen rakenteen esiin projektioita ja läpileikkauksia intuitiivisemmin. Yksittäiset kuvat saattavat kuitenkin olla vaikeasti tulkittavia, sillä kohteiden etäisyyttä katsojasta on usein vaikeaa hahmottaa. Kuvista ja etenkin animaatioista on kuitenkin mahdollista saada erittäin näyttäviä. 
 
-Liitteessä \ref{koodi:volume-spiraali} on esitetty skripti, jolla voidaan luoda framet animaatioon, jossa kamera sekä kiertää kohdetta että zoomaa sisään. Datan lataamisen jälkeen riveillä 10--13 etsitään datan tiheimmästä kohdasta korkeintaan 0,5 kpc päässä oleva paikka, jossa molekulaarisen vedyn osuus kaikesta vedystä on suurin hyödyntämällä \yt :n tarjoamia \texttt{find\_max}- ja \texttt{max\_location}-funktioita. Tämän jälkeen riveillä 16--19 määrätään tutkittavaksi alueeksi säteeltään 1 kpc pallo löydetyn suurimman molekulaarisen vedyn pitoisuuden kohdan ympärillä. 
+Liitteessä \ref{koodi:volume-spiraali} on esitetty skripti, jolla voidaan luoda framet animaatioon, jossa kamera sekä kiertää kohdetta että zoomaa sisään. Datan lataamisen jälkeen riveillä 10--13 etsitään datan tiheimmästä kohdasta korkeintaan 0,5 kpc päässä oleva paikka, jossa molekulaarisen vedyn osuus kaikesta vedystä on suurin hyödyntämällä \yt :n tarjoamia \texttt{find\_max}- ja \texttt{max\_location}-funktioita. Tämän jälkeen riveillä 16--19 määrätään tutkittavaksi alueeksi säteeltään 1 kpc pallo löydetyn suurimman molekulaarisen vedyn pitoisuuden kohdan ympärillä. Lisäksi täytyy määrittää kameran ja kuvan keskustan välinen vektori, kuvan leveys ja resoluutio. 
 
-\subsection{\texttt{eps\_writer}}
+Kun tarvittavat parametrit on alustettu, voidaan camera-olio luoda. Kameran kuvaamiksi kentiksi asetetaan ainoastaan H2\_fraction. Lisäksi määritetään, että kuvassa näytetään ainoastaan aiemmin luodun 1 kpc säteisen pallon sisällä oleva aine, jolloin vältytään siltä riskiltä, että tutkittavan alan eteen tulee toinen huomattavasti molekulaarista vetyä sisältävä alue, joka estää tutkittavan alueen näkemisen.
+
+Animaation luomiseksi käytetään kameran \texttt{zoomin}-funktiota, jolla on mahdollista iteroida haluttu zoomaus halutulla määrällä vakiokokoisia askelia. Esimerkin animaatiossa zoomauskertoimeksi on valittu 3 ja askelten määrä on valittu sellaiseksi, että kohde voidaan kiertää kerran 0,04 radiaanin askelin. Kierron toteuttamiseksi kameraa käännetään kunkin zoomauksen jälkeen. Tämän jälkeen \texttt{zoomin}-funktion palauttama kuva tallennetaan numeroituna.
+
+%TODO ehkä siitä, että on suorituskyvyn kannalta oleellista käyttää yhtä kameraa ja kääntää ja liikuttaa sitä?
+
+\subsection{Usean kuvaajan plotit}
 
 \subsection{Muutokset \yt :n lähdekoodissa} %subsubsection?
-
-\section{Tulokset}
-tulostan tähän tuloksia
-
-
-\section{Loppupäätelmät}
----
-
 
 %%%%% Sisältö loppuu, lähdeluettelo %%%%%
 \bibliographystyle{plain}
@@ -307,7 +306,7 @@ tulostan tähän tuloksia
 %\newpage
 %\section{Läpilento} \label{koodi:kaanto-projection}
 %\lstinputlisting[style=python]{../python/flythrough.py}
-\newpage
+%\newpage
 \section{3D-animaatio spiraaliradalla kohdetta lä\-hes\-tyen} \label{koodi:volume-spiraali}
 \lstinputlisting[style=python]{../python/volume-spiraali.py}
 \end{document}
