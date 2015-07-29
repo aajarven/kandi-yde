@@ -295,6 +295,17 @@ Animaation luomiseksi käytetään kameran \texttt{zoomin}-funktiota, jolla on m
 %TODO ehkä siitä, että on suorituskyvyn kannalta oleellista käyttää yhtä kameraa ja kääntää ja liikuttaa sitä?
 
 \subsection{Usean kuvaajan plotit}
+\yt\ tarjoaa mahdollisuuden kuvaajien palauttamiseen taulukkona, joka voidaan edelleen käyttää esimerkiksi \texttt{matplotlib}in\footnote{\url{http://matplotlib.org/mpl_toolkits/axes_grid/api/axes_grid_api.html}} kanssa usean kuvaajan yhdistämiseksi samaan kuvaan. Tähän on kuitenkin myös apufunktio, jolle voidaan antaa suoraan joko kuvaajat tai jpg-kuvat, jotka asemoidaan haluttaessa väripalkkien kanssa ruudukkoon.
+
+Liitteessä \ref{koodi:multiplot-simppeli} on nähtävillä \texttt{eps\_writer}iä hyödyntävä skripti, joka plottaa tiheyden ja lämpötilan 7 kpc leveällä alueella simulaation tiheimmän kohdan ympäriltä ja tallentaa ne sekä erikseen että yhdessä. Plotti, jossa molemmat ovat, on nähtävissä kuvassa \ref{fig:multiplot-simppeli}. Plotin muodostamista voidaan ohjata erilaisilla parametrina annettavilla lipuilla. Esimerkiksi esimerkissä on hyödynnetty parametreja \texttt{xaxis\_flags} ja \texttt{yaxis\_flags}, joilla asetetaan akselit plottien ulkoreunoille sekä parametria \texttt{cb\_location}, jolla väripalkit asetetaan kuvaajien yläpuolelle.
+
+\begin{figure}
+   \centering
+   \includegraphics[width=\textwidth]{../kuvat/EPSMultiPlot.png}
+   \caption{Liitteessä \ref{koodi:multiplot-simppeli} esitetyn skriptin tuottama kuva.} \label{fig:multiplot-simppeli}
+\end{figure}
+
+\yt\ on kuitenkin vielä kehittyvä paketti, mikä on selvästi huomattavissa \texttt{eps\_writer}-luokassa. %rajat, värit
 
 \subsection{Muutokset \yt :n lähdekoodissa} %subsubsection?
 
@@ -309,4 +320,7 @@ Animaation luomiseksi käytetään kameran \texttt{zoomin}-funktiota, jolla on m
 %\newpage
 \section{3D-animaatio spiraaliradalla kohdetta lä\-hes\-tyen} \label{koodi:volume-spiraali}
 \lstinputlisting[style=python]{../python/volume-spiraali.py}
+\newpage
+\section{Kaksi läpileikkausta samassa plotissa} \label{koodi:multiplot-simppeli}
+\lstinputlisting[style=python]{../python/multiplot-simppeli.py}
 \end{document}
