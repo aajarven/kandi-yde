@@ -19,18 +19,16 @@ tf = yt.ColorTransferFunction((np.log10(minimi), np.log10(maksimi)))
 tf.add_layers(100, w=0.01, colormap="hot")
 
 katselusuunta = [1, 1, 1]
-W = 0.022 # vakio, joka määrää, kuinka laaja alue kuvassa näytetään
-leveys = 512 # kuvan leveys pikseleissä
+leveys = (1.5, 'kpc')
+resoluutio = 512
 
 # luodaan camera-olio
-cam = ds.camera(H2max, katselusuunta, W, leveys, tf, fields=["H2_fraction"], data_source=H2sphere)
+cam = ds.camera(H2max, katselusuunta, leveys, resoluutio, tf, fields=["H2_fraction"], data_source=H2sphere)
 
-frame=0
-step=0.02
-frames = int(math.floor(2*math.pi/step))
+askel=0.02 # (radiaania)
+frames = int(math.floor(2*math.pi/askel))
 
 # zoomataan ja käännetään kameraa ja tallennetaan kuva numeroituna
-for i, snapshot in enumerate(cam.zoomin(3, frames, clip_ratio=8.0)):
-    cam.rotate(0.05)
+for frame, snapshot in enumerate(cam.zoomin(3, frames, clip_ratio=8.0)):
+    cam.rotate(askel)
     snapshot.write_png("kuvat/volume-spiraali%04i.png" %frame)
-    frame += 1
