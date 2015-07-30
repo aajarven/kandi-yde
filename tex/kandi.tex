@@ -233,7 +233,7 @@ v^{n+1}_{i} =  j_{i}\Delta s + (1 - \alpha_{i}\Delta s )v^{n}_{i}
 \end{equation}
 \end{sloppypar}
 
-\section{Oma työ}
+\section{Oma työ} %TODO kerro johonkin yleisestä tavasta tehdä animaatio jos osaa jo tehdä yhden plotin? liian rautalankaa?
 Aloitin \yt :hen tutustumisen selaamalla dokumentaatiota sekä cookbookia\footnote{\url{http://yt-project.org/docs/3.1/cookbook/}} ja ensin kopioimalla ja sittemmin muokkaamalla siellä annettuja malliohjelmia käyttäen esimerkkidataa. Tutustuin tarkimmin halkileikkauksiin, projektioihin ja 3D-renderöinteihin sekä muun muassa niiden akselien tekstien ja jaotuksen tai väriskaalojen muokkaamiseen. Lisäksi kokeilin \yt :n soveltamista animaatioiden tekemiseen.
 
 Opittuani perusasiat aloin soveltaa niitä tutkimusryhmämme tuottamaan dataan kaasupilven romahtamista suoraan mustaksi aukoksi koskevista simulaatioista (Regan et al. 2015). Samalla otin selvää \yt :n tarjoamista mahdollisuuksista usean plotin yhdistämiseksi yhteen kuvaan. Kun samaan kuvaan halutaan useantyyppisiä kuvia, tarvitaan \texttt{eps\_writer}-luokkaa. Sen tarjoama tuki profiileille oli kuitenkin puutteellinen, joten jouduin myös parantelemaan \yt :n lähdekoodia.
@@ -305,9 +305,12 @@ Liitteessä \ref{koodi:multiplot-simppeli} on nähtävillä \texttt{eps\_writer}
    \caption{Liitteessä \ref{koodi:multiplot-simppeli} esitetyn skriptin tuottama kuva.} \label{fig:multiplot-simppeli}
 \end{figure}
 
-\yt\ on kuitenkin vielä kehittyvä paketti, mikä on selvästi huomattavissa \texttt{eps\_writer}-luokassa. %rajat, värit
+\subsubsection{Ongelmat}
+\yt\ on kuitenkin vielä kehittyvä paketti, mikä on selvästi huomattavissa \texttt{eps\_writer}-luokassa käyttämässäni \yt -versiossa 3.2. Kuvasta \ref{fig:multiplot-simppeli} nähdään esimerkiksi, että plotit eivät ole keskellä niille piirrettyjä reunuksia vaan liian alhaalla. Lisäksi mikäli esimerkiksi käytettyä väriskaalaa vaihdetaan, täytyy yksittäiset kuvat tallentaa ennen niiden käyttämistä multiplotissa. Jos esimerkiksi liitteen \ref{koodi:multiplot-simppeli} rivit 21 ja 30 kommentoidaan pois koodista, saadaan tuloksena kuva, jossa väripalkit noudattavat hot-colormappia mutta kuvat oletuksena käytettävää jet-väritystä.
 
-\subsection{Muutokset \yt :n lähdekoodissa} %subsubsection?
+Lisäksi dokumentaation \cite{multiplot-api} ja lähdekoodin \cite{multiplot-source} mukaan tukea myös profiileja
+
+\subsubsection{Muutokset \yt :n lähdekoodissa} %subsubsection?
 
 %%%%% Sisältö loppuu, lähdeluettelo %%%%%
 \bibliographystyle{plain}
