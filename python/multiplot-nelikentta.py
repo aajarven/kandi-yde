@@ -6,38 +6,34 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
 
-sarakkeet = 2
-rivit = 2
-leveys = 7.0 # kpc
-white=pyx.color.cmyk.white
-linewidth = 3
-prof_xrange = [0.1, 7.0] #kpc
-
 ds = yt.load("/data/scratch3/extragal/Enzo/data/LWIR/RD0072/RD0072")
 dd=ds.all_data()
 
-val, maxDen = ds.find_max("density")
-try:
-    radCentre = dd["RadiationParticle", "particle_position"][0]
-except:
-    print "No particle position found"
-    radCentre = [0.5, 0.5, 0.5]
-
-# Create the region
-rad_kpc = ds.quan(leveys, 'kpc')
-rad = rad_kpc.in_units('code_length')
-codecentre =  ds.arr(radCentre, 'code_length')
-leftedge = codecentre - rad
-rightedge = codecentre + rad
-myregion = ds.region(codecentre, leftedge, rightedge)
+sarakkeet = 2
+rivit = 2
+leveys = yt.YTQuantity(7.0, 'kpc')
+white=pyx.color.cmyk.white
+linewidth = 3
+prof_xrange = [0.1, 7.0] #kpc
 colorbar_label = []
 plots = []
 colorbar_flags = []
 xaxis_flags = []
 yaxis_flags = []
 
+val, maxTiheys = ds.find_max("density")
+try:
+    keskusta = dd["RadiationParticle", "particle_position"][0]
+except:
+    print "No particle position found"
+    keskusta = [0.5, 0.5, 0.5]
+
+leftedge = keskusta - leveys/2
+rightedge = keskusta + leveys/2
+myregion = ds.region(keskusta, leftedge, rightedge)
+
 #H Number Density
-H_proj = yt.ProjectionPlot(ds, 1, "H_number_density", center=radCentre, width=(leveys, 'kpc'), data_source=myregion, weight_field='density')
+H_proj = yt.ProjectionPlot(ds, 1, "H_number_density", center=keskusta, width=leveys, data_source=myregion, weight_field='density')
 H_proj.set_log('H_number_density', False)
 H_proj.set_zlim('H_number_density', 15e-3, 45e-3)
 H_proj.save("kuvat/Hproj.png")
@@ -48,7 +44,7 @@ xaxis_flags.append(-1)
 yaxis_flags.append(-1)
 
 #H2 Fraction
-H2_slice = yt.SlicePlot(ds, 1, "H2_fraction", center=radCentre, width=(leveys, 'kpc'), north_vector = [1,0,0])
+H2_slice = yt.SlicePlot(ds, 1, "H2_fraction", center=keskusta, width=leveys, north_vector = [1,0,0])
 H2_slice.set_zlim('H2_fraction', 5.0e-9, 8e-6)
 H2_slice.save("kuvat/H2fracproj.png")
 plots.append(H2_slice)
@@ -58,7 +54,7 @@ xaxis_flags.append(-1)
 yaxis_flags.append(-1)
 
 #H profile
-sphere = ds.sphere(maxDen, (leveys, "kpc"))
+sphere = ds.sphere(maxTiheys, leveys)
 H_prof = yt.ProfilePlot(sphere, "radius", ["H_number_density"])
 H_prof.set_unit("radius", "kpc")
 H_prof.set_xlim(prof_xrange[0], prof_xrange[1])
@@ -72,7 +68,7 @@ xaxis_flags.append(0)
 yaxis_flags.append(0)
 
 #H2 profile
-sphere = ds.sphere(radCentre, (leveys, "kpc"))
+sphere = ds.sphere(keskusta, leveys)
 H2_prof = yt.ProfilePlot(sphere, "radius", ["H2_fraction"])
 plots.append(H2_prof)
 colorbar_flags.append(False)
