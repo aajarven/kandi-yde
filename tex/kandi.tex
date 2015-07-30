@@ -308,7 +308,7 @@ Liitteessä \ref{koodi:multiplot-simppeli} on nähtävillä \texttt{eps\_writer}
 \subsubsection{Ongelmat}
 \yt\ on kuitenkin vielä kehittyvä paketti, mikä on selvästi huomattavissa \texttt{eps\_writer}-luokassa käyttämässäni \yt -versiossa 3.2. Kuvasta \ref{fig:multiplot-simppeli} nähdään esimerkiksi, että plotit eivät ole keskellä niille piirrettyjä reunuksia vaan liian alhaalla. Lisäksi mikäli esimerkiksi käytettyä väriskaalaa vaihdetaan, täytyy yksittäiset kuvat tallentaa ennen niiden käyttämistä multiplotissa. Jos esimerkiksi liitteen \ref{koodi:multiplot-simppeli} rivit 21 ja 30 kommentoidaan pois koodista, saadaan tuloksena kuva, jossa väripalkit noudattavat hot-colormappia mutta kuvat oletuksena käytettävää jet-väritystä.
 
-Lisäksi dokumentaation \cite{multiplot-api} ja lähdekoodin \cite{multiplot-source} mukaan tukea myös profiileja
+Lisäksi dokumentaation \cite{multiplot-api} ja lähdekoodin \cite{multiplot-source} mukaan tukea läpileikkausten ja muiden \yt :n tarjoamien plottien lisäksi myös profiileja. 
 
 \subsubsection{Muutokset \yt :n lähdekoodissa} %subsubsection?
 
@@ -326,4 +326,7 @@ Lisäksi dokumentaation \cite{multiplot-api} ja lähdekoodin \cite{multiplot-sou
 \newpage
 \section{Kaksi läpileikkausta samassa plotissa} \label{koodi:multiplot-simppeli}
 \lstinputlisting[style=python]{../python/multiplot-simppeli.py}
+\newpage
+\section{Nelikenttä} \label{koodi:multiplot-nelikentta}
+\lstinputlisting[style=python]{../python/multiplot-nelikentta.py}
 \end{document}
