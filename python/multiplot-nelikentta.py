@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 import yt
 import pyx
 import yt.visualization.eps_writer as eps
@@ -21,18 +22,17 @@ colorbar_flags = []
 xaxis_flags = []
 yaxis_flags = []
 
-val, maxTiheys = ds.find_max("density")
+# tutkittavat alueet
 try:
     keskusta = dd["RadiationParticle", "particle_position"][0]
 except:
     print "No particle position found"
     keskusta = [0.5, 0.5, 0.5]
-
 leftedge = keskusta - leveys/2
 rightedge = keskusta + leveys/2
 myregion = ds.region(keskusta, leftedge, rightedge)
 
-#H Number Density
+# H Number Density
 H_proj = yt.ProjectionPlot(ds, 1, "H_number_density", center=keskusta, width=leveys, data_source=myregion, weight_field='density')
 H_proj.set_log('H_number_density', False)
 H_proj.set_zlim('H_number_density', 15e-3, 6e-2)
@@ -43,7 +43,7 @@ colorbar_flags.append(True)
 xaxis_flags.append(-1)
 yaxis_flags.append(-1)
 
-#H2 Fraction
+# H2 Fraction
 H2_slice = yt.SlicePlot(ds, 1, "H2_fraction", center=keskusta, width=leveys, north_vector = [1,0,0])
 H2_slice.set_zlim('H2_fraction', 1e-11, 8e-6)
 H2_slice.save("kuvat/H2fracproj.png")
@@ -53,8 +53,9 @@ colorbar_flags.append(True)
 xaxis_flags.append(-1)
 yaxis_flags.append(-1)
 
-#H profile
-sphere = ds.sphere(maxTiheys, leveys)
+# H profile
+val, maxTiheys = ds.find_max("density")
+sphere = ds.sphere(maxTiheys, leveys) # keskitetään H number density -kuvaaja tiheimpään kohtaan
 H_prof = yt.ProfilePlot(sphere, "radius", ["H_number_density"])
 H_prof.set_unit("radius", "kpc")
 H_prof.set_xlim(prof_xrange[0], prof_xrange[1])
@@ -67,9 +68,14 @@ colorbar_flags.append(False)
 xaxis_flags.append(0)
 yaxis_flags.append(0)
 
-#H2 profile
-sphere = ds.sphere(keskusta, leveys)
+# H2 profile
+sphere = ds.sphere(keskusta, leveys) # keskitetään H2 fraction -kuvaaja säteilylähteeseen
 H2_prof = yt.ProfilePlot(sphere, "radius", ["H2_fraction"])
+H2_prof.set_unit("radius", "kpc")
+H2_prof.set_xlim(prof_xrange[0], prof_xrange[1])
+H2_prof.set_ylim("H2_fraction", 1e-12, 2e-6)
+H2_prof.set_line_property("linewidth", linewidth)
+H_prof.x_log = False
 plots.append(H2_prof)
 colorbar_flags.append(False)
 xaxis_flags.append(0)
