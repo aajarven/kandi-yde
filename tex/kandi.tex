@@ -308,9 +308,20 @@ Liitteessä \ref{koodi:multiplot-simppeli} on nähtävillä \texttt{eps\_writer}
 \subsubsection{Ongelmat}
 \yt\ on kuitenkin vielä kehittyvä paketti, mikä on selvästi huomattavissa \texttt{eps\_writer}-luokassa käyttämässäni \yt -versiossa 3.2. Kuvasta \ref{fig:multiplot-simppeli} nähdään esimerkiksi, että plotit eivät ole keskellä niille piirrettyjä reunuksia vaan liian alhaalla. Lisäksi mikäli esimerkiksi käytettyä väriskaalaa vaihdetaan, täytyy yksittäiset kuvat tallentaa ennen niiden käyttämistä multiplotissa. Jos esimerkiksi liitteen \ref{koodi:multiplot-simppeli} rivit 21 ja 30 kommentoidaan pois koodista, saadaan tuloksena kuva, jossa väripalkit noudattavat hot-colormappia mutta kuvat oletuksena käytettävää jet-väritystä.
 
-Lisäksi dokumentaation \cite{multiplot-api} ja lähdekoodin \cite{multiplot-source} mukaan tukea läpileikkausten ja muiden \yt :n tarjoamien plottien lisäksi myös profiileja. 
+Lisäksi dokumentaation \cite{multiplot-api} ja lähdekoodin \cite{multiplot-source} mukaan tukea läpileikkausten ja muiden \yt :n tarjoamien plottien lisäksi myös profiileja. Esimerkiksi liitteen \ref{koodi:multiplot-nelikentta} skriptin ajaminen johtaa kuitenkin virheilmoitukseen "\texttt{AttributeError: 'ProfilePlot' object has no attribute '\_redraw\_image'}" ohjelman suorituksen edettyä riville 85, jossa plotit yhdistetään. Yksittäiset kuvat tallentuvat kuitenkin normaalisti, mikä osoittaa skriptin alkuosan toimivan. Todennäköisesti \texttt{ProfilePlot}-luokkaa tai jotain muuta \yt :n osaa on muokattu, ja testien riittämättömän kattavuuden takia vaikutukset muualla koodissa ovat jääneet huomaamatta.
 
-\subsubsection{Muutokset \yt :n lähdekoodissa} %subsubsection?
+%\textsc{Traceback (most recent call last):
+%  File "multiplot-nelikentta.py", line 85, in <module>
+%    multi = eps.multiplot(sarakkeet, rivit, plots, bare_axes=False, cb_labels=colorbar_label, cb_flags = colorbar_flags, xaxis_flags = xaxis_flags, yaxis_flags = yaxis_flags)
+%  File "/data/scratch3/extragal/YT/yt-x86_64/src/yt-hg/yt/visualization/eps_writer.py", line 1120, in multiplot
+%    field=fields[index])
+%  File "/data/scratch3/extragal/YT/yt-x86_64/src/yt-hg/yt/visualization/eps_writer.py", line 505, in insert_image_yt
+%    plot._redraw_image()
+%AttributeError: 'ProfilePlot' object has no attribute '_redraw_image'}
+
+
+\subsubsection{Muutokset \yt :n lähdekoodissa}
+
 
 %%%%% Sisältö loppuu, lähdeluettelo %%%%%
 \bibliographystyle{plain}
@@ -324,9 +335,36 @@ Lisäksi dokumentaation \cite{multiplot-api} ja lähdekoodin \cite{multiplot-sou
 \section{3D-animaatio spiraaliradalla kohdetta lä\-hes\-tyen} \label{koodi:volume-spiraali}
 \lstinputlisting[style=python]{../python/volume-spiraali.py}
 \newpage
+
 \section{Kaksi läpileikkausta samassa plotissa} \label{koodi:multiplot-simppeli}
 \lstinputlisting[style=python]{../python/multiplot-simppeli.py}
 \newpage
+
 \section{Nelikenttä} \label{koodi:multiplot-nelikentta}
 \lstinputlisting[style=python]{../python/multiplot-nelikentta.py}
+\newpage
+
+
+\section{\yt:n lähdekoodin muutokset} \label{liite:mutuokset}
+\lstinputlisting[style=python, caption={Profiilin akselien rajojen, tekstien ja logaritmisuuden asettamiseksi \texttt{eps\_writer}-luokkaan lisätty koodi.}, label={koodi:akselit}]{../python/akselit-korjaus.py}
+
+\begin{minipage}{\textwidth}
+\lstset{style=python, caption={Alkuperäinen profiilin hakemiseen käytetty koodinpätkä.}, label={koodi:fig-orig}}
+\begin{lstlisting}
+elif isinstance(plot, ProfilePlot):
+	plot._redraw_image()
+	# Remove colorbar
+	_p1 = plot._figure
+	_p1.delaxes(_p1.axes[1])
+\end{lstlisting}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+\lstset{style=python, caption={Korjattu ohjelmanpätkä, joka korvaa listingin \ref{koodi:fig-orig} koodin.}, label={koodi:fig-uusi}}
+\begin{lstlisting}
+elif isinstance(plot, ProfilePlot):
+	_p1 = plot.figures.items()[0][1]
+\end{lstlisting}
+\end{minipage}
+
 \end{document}
