@@ -321,9 +321,16 @@ Lisäksi dokumentaation \cite{multiplot-api} ja lähdekoodin \cite{multiplot-sou
 
 
 \subsubsection{Muutokset \yt :n lähdekoodissa}
-Virheilmoituksen perusteella ongelmakohdan paikantaminen oli hyvin yksinkertaista. Liitteen \ref{liite:mutuokset} listingissä \ref{koodi:fig-orig} on esitetty ongelman aiheuttanut profiilien käsittelyyn kirjoitettu \texttt{eps\_writer}-luokan \texttt{insert\_image\_yt}-funktion osa, jonka on tarkoitus hakea multiplottiin lisättävä kuva ja poistaa profiilin tapauksessa tarpeeton väripalkki.
+Virheilmoituksen perusteella ongelmakohdan paikantaminen oli hyvin yksinkertaista. Liitteen \ref{liite:muutokset} listingissä \ref{koodi:fig-orig} on esitetty ongelman aiheuttanut profiilien käsittelyyn kirjoitettu \texttt{eps\_writer}-luokan \texttt{insert\_image\_yt}-funktion osa, jonka on tarkoitus hakea multiplottiin lisättävä kuva ja poistaa profiilin tapauksessa tarpeeton väripalkki.
 
-\texttt{ProfilePlot}-luokalla ei kuitenkaan ole \texttt{\_redraw\_image()}-funktiota, joten ohjelman suoritus keskeytyy. Myöskään \texttt{\_figure} ei ole määritelty. Sen sijaan \texttt{figures}-attribuuttiin on tallennettu \texttt{FigureContainer}, josta haluttu figure voidaan hakea. Lisäksi väripalkin poistaminen ei ole tarpeellista. Sama lohko näiden korjausten jälkeen on nähtävissä liitteen \ref{liite:mutuokset} listingissä \ref{koodi:fig-uusi}.
+\texttt{ProfilePlot}-luokalla ei kuitenkaan ole \texttt{\_redraw\_image()}-funktiota, joten ohjelman suoritus keskeytyy. Myöskään \texttt{\_figure} ei ole määritelty. Sen sijaan \texttt{figures}-attribuuttiin on tallennettu \texttt{FigureContainer}, josta haluttu figure voidaan hakea. Lisäksi väripalkin poistaminen ei ole tarpeellista. Sama lohko näiden korjausten jälkeen on nähtävissä liitteen \ref{liite:muutokset} listingissä \ref{koodi:fig-uusi}.
+
+Tämän lisäksi alkuperäisessä koodissa käytetään akselien rajojen, tekstien ja logaritmisuuden määrittämiseen samaa lohkoa sekä \texttt{ProfilePlot}- että \texttt{PhasePlot}-luokkien olioiden käsittelyyn. Sen käyttäminen profiileihin johtaa kuitenkin kaatumiseen. Siksi kirjoitin profiilien käsittelyyn oman, erillisen lohkonsa, joka on nähtävissä liitteen \ref{liite:muutokset} listingissä \ref{koodi:akselit}.
+
+Lisäksi profiilien kanssa väripalkin käyttäminen ei ole koskaan mielekästä, joten lisäsin \texttt{colorbar\_yt}-funktioon tarkastuksen, jolla varmistetaan, ettei sitä käytetä profiilien kanssa. Mikäli käyttäjä yrittää tehdä näin, heitetään \texttt{RuntimeError} viestillä "When using ProfilePlots you must either set yt\_nocbar=True or provide colorbar flags so that the profiles don't have colorbars". Lisäksi lisäsin väripalkin tekstiä käsittelevään osaan tarkastuksen, jolla varmistetaan ettei sitä yritetä käsitellä jos kyseessä on profiili.
+
+%TODO push
+
 
 %%%%% Sisältö loppuu, lähdeluettelo %%%%%
 \bibliographystyle{plain}
@@ -347,7 +354,7 @@ Virheilmoituksen perusteella ongelmakohdan paikantaminen oli hyvin yksinkertaist
 \newpage
 
 
-\section{\yt:n lähdekoodin muutokset} \label{liite:mutuokset}
+\section{\yt:n lähdekoodin muutokset} \label{liite:muutokset}
 
 \begin{minipage}{\textwidth}
 \lstset{style=python, caption={Alkuperäinen profiilin hakemiseen käytetty koodinpätkä.}, label={koodi:fig-orig}}
