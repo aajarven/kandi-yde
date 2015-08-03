@@ -233,7 +233,11 @@ v^{n+1}_{i} =  j_{i}\Delta s + (1 - \alpha_{i}\Delta s )v^{n}_{i}
 \end{equation}
 \end{sloppypar}
 
-\section{Oma työ} %TODO kerro johonkin yleisestä tavasta tehdä animaatio jos osaa jo tehdä yhden plotin? liian rautalankaa?
+
+\section{Tarkasteltava data}
+
+
+\section{\yt :n sovelluksia} %TODO kerro johonkin yleisestä tavasta tehdä animaatio jos osaa jo tehdä yhden plotin? liian rautalankaa?
 Aloitin \yt :hen tutustumisen selaamalla dokumentaatiota sekä cookbookia\footnote{\url{http://yt-project.org/docs/3.1/cookbook/}} ja ensin kopioimalla ja sittemmin muokkaamalla siellä annettuja malliohjelmia käyttäen esimerkkidataa. Tutustuin tarkimmin halkileikkauksiin, projektioihin ja 3D-renderöinteihin sekä muun muassa niiden akselien tekstien ja jaotuksen tai väriskaalojen muokkaamiseen. Lisäksi kokeilin \yt :n soveltamista animaatioiden tekemiseen.
 
 Opittuani perusasiat aloin soveltaa niitä tutkimusryhmämme tuottamaan dataan kaasupilven romahtamista suoraan mustaksi aukoksi koskevista simulaatioista (Regan et al. 2015). Samalla otin selvää \yt :n tarjoamista mahdollisuuksista usean plotin yhdistämiseksi yhteen kuvaan. Kun samaan kuvaan halutaan useantyyppisiä kuvia, tarvitaan \texttt{eps\_writer}-luokkaa. Sen tarjoama tuki profiileille oli kuitenkin puutteellinen, joten jouduin myös parantelemaan \yt :n lähdekoodia.
@@ -327,9 +331,17 @@ Virheilmoituksen perusteella ongelmakohdan paikantaminen oli hyvin yksinkertaist
 
 Tämän lisäksi alkuperäisessä koodissa käytetään akselien rajojen, tekstien ja logaritmisuuden määrittämiseen samaa lohkoa sekä \texttt{ProfilePlot}- että \texttt{PhasePlot}-luokkien olioiden käsittelyyn. Sen käyttäminen profiileihin johtaa kuitenkin kaatumiseen. Siksi kirjoitin profiilien käsittelyyn oman, erillisen lohkonsa, joka on nähtävissä liitteen \ref{liite:muutokset} listingissä \ref{koodi:akselit}.
 
-Lisäksi profiilien kanssa väripalkin käyttäminen ei ole koskaan mielekästä, joten lisäsin \texttt{colorbar\_yt}-funktioon tarkastuksen, jolla varmistetaan, ettei sitä käytetä profiilien kanssa. Mikäli käyttäjä yrittää tehdä näin, heitetään \texttt{RuntimeError} viestillä "When using ProfilePlots you must either set yt\_nocbar=True or provide colorbar flags so that the profiles don't have colorbars". Lisäksi lisäsin väripalkin tekstiä käsittelevään osaan tarkastuksen, jolla varmistetaan ettei sitä yritetä käsitellä jos kyseessä on profiili.
+Lisäksi profiilien kanssa väripalkin käyttäminen ei ole koskaan mielekästä, joten lisäsin \texttt{colorbar\_yt}-funktioon tarkastuksen, jolla varmistetaan, ettei sitä käytetä profiilien kanssa. Mikäli käyttäjä yrittää tehdä näin, heitetään \texttt{RuntimeError} viestillä "When using ProfilePlots you must either set yt\_nocbar=True or provide colorbar flags so that the profiles don't have colorbars".
 
 %TODO push
+
+Näiden muutosten jälkeen liitteen \ref{koodi:multiplot-nelikentta} skripti voidaan ajaa virheettä. Kukin plotti täytyy edelleen tallentaa yksin, jotta plottiin tehdyt muutokset välittyvät luotavaan nelikenttään. Lisäksi \yt piirtää väripalkit niin kauas varsinaisista ploteista, että tarvittaessa väliin mahtuisi akselin selite. Koska sitä ei kuitenkaan tässä plotissa tarvita, muutin tätä plottia varten väripalkin sijoittelua määrääviä vakioita siten, että ne siirtyivät hieman lähemmäs plotteja. Tuloksena saatava nelikenttä on nähtävissä kuvassa \ref{fig:nelikentta}.
+
+\begin{figure}
+   \centering
+   \includegraphics[width=\textwidth]{../kuvat/nelikko.png}
+   \caption{Liitteessä \ref{koodi:multiplot-nelikentta} esitetyn skriptin tuottama kuva. Ylemmissä ploteissa on esitetty samalta alueelta säteilevän hiukkasen ympäristöstä vedyn lukumäärätiheyden projektio ja läpileikkaus molekulaarisen vedyn osuudesta. Näiden alla olevissa profiileissa on esitetty samat suureet profiileina, vedyn lukumäärätiheys keskitettynä simulaation tiheimpään kohtaan ja molekulaarisen vedyn osuus keskitettynä säteilylähteeseen.} \label{fig:nelikentta}
+\end{figure}
 
 
 %%%%% Sisältö loppuu, lähdeluettelo %%%%%
