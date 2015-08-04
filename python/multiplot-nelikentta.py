@@ -28,7 +28,7 @@ try:
 except:
     print "No particle position found"
     keskusta = [0.5, 0.5, 0.5]
-leftedge = keskusta - leveys/2
+leftedge = keskusta - leveys /2
 rightedge = keskusta + leveys/2
 myregion = ds.region(keskusta, leftedge, rightedge)
 
@@ -37,7 +37,7 @@ H_proj = yt.ProjectionPlot(ds, 1, "H_number_density", center=keskusta, width=lev
 H_proj.set_log('H_number_density', False)
 H_proj.set_zlim('H_number_density', 15e-3, 6e-2)
 H_proj.set_cmap(field="H_number_density", cmap='hot')
-H_proj.save("kuvat/Hproj.png")
+#H_proj.save("kuvat/Hproj.png")
 plots.append(H_proj)
 colorbar_label.append("H Number Density (cm$^{-3}$)")
 colorbar_flags.append(True)
@@ -48,7 +48,7 @@ yaxis_flags.append(-1)
 H2_slice = yt.SlicePlot(ds, 1, "H2_fraction", center=keskusta, width=leveys, north_vector = [1,0,0])
 H2_slice.set_zlim('H2_fraction', 1e-11, 8e-6)
 H2_slice.set_cmap(field="H2_fraction", cmap='hot')
-H2_slice.save("kuvat/H2fracproj.png")
+#H2_slice.save("kuvat/H2fracproj.png")
 plots.append(H2_slice)
 colorbar_label.append("H$_2$ Fraction")
 colorbar_flags.append(True)
@@ -64,7 +64,7 @@ H_prof.set_xlim(prof_xrange[0], prof_xrange[1])
 H_prof.set_ylim("H_number_density", 0.015, 0.13)
 H_prof.set_line_property("linewidth", linewidth)
 H_prof.x_log = False
-H_prof.save("kuvat/Hprof.png")
+#H_prof.save("kuvat/Hprof.png")
 plots.append(H_prof)
 colorbar_flags.append(False)
 xaxis_flags.append(0)
@@ -82,7 +82,7 @@ plots.append(H2_prof)
 colorbar_flags.append(False)
 xaxis_flags.append(0)
 yaxis_flags.append(1)
-H2_prof.save("kuvat/H2prof.png")
+#H2_prof.save("kuvat/H2prof.png")
 
 multi = eps.multiplot(sarakkeet, rivit, plots, bare_axes=False, cb_labels=colorbar_label, cb_flags = colorbar_flags, xaxis_flags = xaxis_flags, yaxis_flags = yaxis_flags)
 multi.scale_line(label="%.1f kpc" % (0.5*leveys),size=0.5, loc=(0.05,1.08))
