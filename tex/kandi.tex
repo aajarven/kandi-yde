@@ -3,7 +3,7 @@
 \usepackage[finnish]{babel}
 \usepackage{setspace}
 %\usepackage{parskip}
-%\usepackage{amssymb}
+\usepackage{amssymb}
 %\usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{subcaption}
@@ -93,13 +93,14 @@ postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}
 }
 %\renewcommand{\lstlistingname}{Uusinimi} %TODO mieti tämä
 
+%\addtocontents{toc}{\protect\thispagestyle{empty}}
 
 \begin{document}
 
 % Sisällysluettelo
 \newpage
-\thispagestyle{empty}
 \tableofcontents
+\thispagestyle{empty}
 \newpage
 \setcounter{page}{1}
 \parskip=1em \advance\parskip by 0pt plus 2pt
@@ -236,6 +237,12 @@ v^{n+1}_{i} =  j_{i}\Delta s + (1 - \alpha_{i}\Delta s )v^{n}_{i}
 
 \section{Tarkasteltava data}
 
+
+\subsection{Havainnot supermassiivisista mustista aukoista punasiirtymillä $z \gtrsim 6$}
+
+\subsection{Eddingtonin luminositeetti}
+
+\subsection{Mustien aukkojen syntytavat}
 
 \section{\yt :n sovelluksia} %TODO kerro johonkin yleisestä tavasta tehdä animaatio jos osaa jo tehdä yhden plotin? liian rautalankaa?
 Aloitin \yt :hen tutustumisen selaamalla dokumentaatiota sekä cookbookia\footnote{\url{http://yt-project.org/docs/3.1/cookbook/}} ja ensin kopioimalla ja sittemmin muokkaamalla siellä annettuja malliohjelmia käyttäen esimerkkidataa. Tutustuin tarkimmin halkileikkauksiin, projektioihin ja 3D-renderöinteihin sekä muun muassa niiden akselien tekstien ja jaotuksen tai väriskaalojen muokkaamiseen. Lisäksi kokeilin \yt :n soveltamista animaatioiden tekemiseen.
