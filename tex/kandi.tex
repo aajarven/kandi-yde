@@ -242,10 +242,27 @@ Tutkielmassa esiteltävät plotit on luotu John Reganin ym. \cite{rj} supermassi
 \subsection{Havainnot}
 Kvasaareista on toisistaan riippumattomia havaintoja jopa punasiirtymillä $z \gtrsim 6$, jotka vastaavat aikaa noin 0,9 miljardin vuoden sisällä maailmankaikkeuden synnystä. Näitä havaintoja on tehty muun muassa SDSS- sekä VIKING-datasta. Optisen alueen havainnoissa joudutaan rajoittumaan alueeseen $z \lesssim 6,4$, mutta lähi-infrapunassa on havaittu kohde jopa punasiirtymällä 7,085. \cite{fan, mortlock, venemans}
 
-Kvasaarihavainnot osoittavat, että jo näillä varhaisilla punasiirtymillä on ollut olemassa supermassiivisia mustia aukkoja, joiden massa on luokkaa $10^9 ~M_{\astrosun}$. Tämä on yllättävää, sillä mustan aukon on kasvettava hyvin nopeasti tai synnyttävä melko suurena, jotta se ehtii saavuttaa näin suuren massan. Näiden varhaisten supermassiivisten mustien aukkojen synnyn selittäminen onkin haasteellista nykyisillä teoreettisilla malleilla.\cite{li}
+Kvasaarihavainnot osoittavat, että jo näillä varhaisilla punasiirtymillä on ollut olemassa supermassiivisia mustia aukkoja, joiden massa on luokkaa $10^9 ~M_{\astrosun}$. Tämä on yllättävää, sillä mustan aukon on kasvettava hyvin nopeasti tai synnyttävä melko suurena, jotta se ehtii saavuttaa näin suuren massan. Näiden varhaisten supermassiivisten mustien aukkojen synnyn selittäminen onkin haasteellista nykyisillä teoreettisilla malleilla. \cite{li}
 
 \subsection{Eddingtonin luminositeetti}
-Vaikka mustan aukon läheisyydessä olisi runsaasti ainetta, ei aukko voi kasvaa mielivaltaisen nopeasti. Kun aukkoon putoaa ainetta, 
+Vaikka mustan aukon läheisyydessä olisi runsaasti ainetta, ei aukko voi kasvaa mielivaltaisen nopeasti. Kun aukkoon putoaa ainetta, aineen lepomassan energiasta jopa 40\% vapautuu säteilynä \cite{pringle}. Tästä aiheutuva säteilypaine vaikuttaa muihin kertymäkiekon hiukkasiin työntäen niitä kauemmas, jolloin aukkoon putoavan aineen määrä vähenee jälleen. \cite{bartelmann}
+
+Aukkoa ympäröivän aineen elektroneihin vaikuttaa säteilypaineen aiheuttama voima
+\begin{equation}\label{sateilypaine}
+	\vec{F}_R = \frac{L}{4 \pi R^2 c} \sigma_T \vec{e},
+\end{equation}
+joka työntää elektroneja kauemmas aukosta. Yhtälössä $L$ on aukon luminositeetti, $R$ elektronin etäisyys aukosta ja $\sigma_T$ elektronin vaikutusala Thomsonin sironnassa. Samalla aukon painovoima vetää niitä kohti aukkoa yhtälön \ref{gravitaatio} mukaisesti.
+\begin{equation}\label{gravitaatio}
+	\vec{F}_G = -\frac{GMm}{R^2}\vec{e}
+\end{equation}
+Hiukkanen putoaa kohti aukkoa kun $|\vec{F}_G|>|\vec{F}_R|$. Kun oletetaan ionisoituneen aineen jakautuneen tasaisesti aukon ympärille ja aukon säteilevän pallosymmetrisesti, voidaan tästä ehdosta laskea luminositeetti, jolla säteilypaine on yhtä suuri kuin aukon painovoima, jolloin ainetta ei enää putoa aukkoon. Tällöin aukko on saavuttanut \textit{Eddingtonin luminositeetin}, jolle voidaan yhtälöiden \ref{sateilypaine} ja \ref{gravitaatio} avulla ratkaista yhtälön \ref{eddington} mukainen lauseke. \cite{pringle} %TODO onko vaikutusala oikea sana? 
+\begin{equation}\label{eddington}
+	L_{Edd}=\frac{4 \pi GMm}{\sigma_T}c
+\end{equation}
+
+Aiemmassa käsittelyssä tutkittiin pelkästään elektronien tuntemia voimia. Mustaa aukkoa ympäröivä aine koostuu erityisesti varhaisessa maailmankaikkeudessa lähinnä vetyplasmasta, jossa on elektronien lisäksi protoneja. Protonin vaikutusala on kuitenkin noin $\SI{3,2e6}{}$ kertaa pienempi kuin elektronin, joten niihin vaikuttava voima on mitättömän pieni verrattuna elektronien vaikutusalaan. Coulombin voiman ansiosta elektronien tuntema säteilypaine vaikuttaa kuitenkin myös protoneihin. Näin ollen kaasuun kohdistuvien voimien laskemiseksi tulee hiukkasen massana $m$ käyttää keskimääräistä massaa per elektroni, vetyplasman tapauksessa siis käytännössä protonin massaa. \cite{pringle}
+
+Teoriassa musta aukko ei voi kasvaa Eddingtonin luminositeetin asettamaa rajaa nopeammin. % mutta...
 
 \subsection{Mustien aukkojen syntytavat}
 
