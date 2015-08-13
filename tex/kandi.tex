@@ -236,8 +236,8 @@ v^{n+1}_{i} =  j_{i}\Delta s + (1 - \alpha_{i}\Delta s )v^{n}_{i}
 \end{sloppypar}
 
 
-\section{Tarkasteltava simulaatio}
-Tutkielmassa esiteltävät plotit on luotu John Reganin ym. \cite{rj} supermassiivisten mustien aukkojen syntyä mallintavasta simulaatiodatasta. Simulaatio on ajettu käyttäen aiemmin esiteltyä Enzo-simulaatiokoodia. Sen tarkoituksena on tutkia, kuinka hyvin varhaisessa maailmankaikkeudessa voi syntyä havaintoja vastaavia supermassiivisia mustia aukkoja. Simulaatiossa tutkitaan mahdollisuutta kaasupilven romahtamiseen suoraan noin $10^4$ -- $10^6~ M_{\astrosun}$ massaiseksi mustaksi aukoksi Lyman-Werner -kaistassa säteilevän säteilylähteen läheisyydessä. \cite{rj}
+\section{Supermassiiviset mustat aukot}
+Tutkielmassa esiteltävät plotit on luotu John Reganin ym. supermassiivisten mustien aukkojen syntyä mallintavasta simulaatiodatasta. Simulaatio on ajettu käyttäen aiemmin esiteltyä Enzo-simulaatiokoodia. Sen tarkoituksena on tutkia, kuinka hyvin varhaisessa maailmankaikkeudessa voi syntyä havaintoja vastaavia supermassiivisia mustia aukkoja. Simulaatiossa tutkitaan mahdollisuutta kaasupilven romahtamiseen suoraan noin $10^4$ -- $10^6~ M_{\astrosun}$ massaiseksi mustaksi aukoksi Lyman-Werner -kaistassa säteilevän säteilylähteen läheisyydessä. \cite{rj}
 
 \subsection{Havainnot}
 Kvasaareista on toisistaan riippumattomia havaintoja jopa punasiirtymillä $z \gtrsim 6$, jotka vastaavat aikaa noin 0,9 miljardin vuoden sisällä maailmankaikkeuden synnystä. Näitä havaintoja on tehty muun muassa SDSS- sekä VIKING-datasta. Optisen alueen havainnoissa joudutaan rajoittumaan alueeseen $z \lesssim 6,4$, mutta lähi-infrapunassa on havaittu kohde jopa punasiirtymällä 7,085. \cite{fan, mortlock, venemans}
@@ -265,10 +265,20 @@ Aiemmassa käsittelyssä tutkittiin pelkästään elektronien tuntemia voimia. M
 Pallosymmetrisesti massaa keräävä musta aukko ei voi kasvaa Eddingtonin luminositeetin asettamaa rajaa nopeammin. On kuitenkin kehitetty joitakin malleja, joissa sopivilla kertymäkiekon ominaisuuksilla voidaan saavuttaa esimerkiksi 100--200 -kertainen kasvunopeus Eddingtonin luminositeetin asettamaan ylärajaan verrattuna. Tämä on mahdollista, mikäli mustan aukon säteily kohdistuu hyvin pieneen avaruuskulmaan tai energiaa siirtyy muilla tavoilla. \cite{sadowski}
 
 \subsection[Mustien aukkojen synty]{Supermassiivisten mustien aukkojen mahdolliset syntytavat}
-Selkein tapa mustan aukon synnylle on syntyä tähden kehityksen lopputuotteena. Mikäli esimerkiksi massaltaan luokkaa $100 - 300~M_{\astrosun}$ oleva populaation III tähti romahtaa mustaksi aukoksi punasiirtymällä $z \approx 20$ ja saatavilla on riittävästi materiaa, jotta se voi kasvaa Eddingtonin luminositeetin asettamalla rajalla, voi aukko kasvaa supermassiiviseksi punasiirtymään $z\approx 7$ mennessä. \cite{whalen}%TODO mutta epätodennäköistä koska
+Selkein tapa mustan aukon synnylle on syntyä tähden kehityksen lopputuotteena. Mikäli esimerkiksi massaltaan luokkaa $100 - 300~M_{\astrosun}$ oleva populaation III tähti romahtaa mustaksi aukoksi punasiirtymällä $z \approx 20$, se voi ehtiä kasvaa supermassiiviseksi punasiirtymään $z\approx 7$ mennessä. Tämä edellyttää kuitenkin sitä, että saatavilla on riittävästi materiaa, jotta aukko voi kasvaa lähes koko ajan Eddingtonin luminositeetin asettamalla rajalla. \cite{whalen}
 
+Tämä on kuitenkin ongelmallista, sillä populaation III tähdet yleensä menettävät elinaikanaan halon, jossa ne ovat syntyneet. Lisäksi jotkin simulaatiot viittaavat siihen, että tyypillinen populaation III tähti oli massaltaan vain joitakin kymmeniä $M_{\astrosun}$, jolloin kasvaminen supermassiiviseksi tarkasteltavalla aikavälillä on vielä epätodennäköisempää. Lisäksi mustan aukon alettua kerätä materiaa, sen säteilemä ionisoiva säteily hajottaa entisestään aukkoa ympäröivää haloa, jolloin kasvu rajoittuu murto-osaan Eddingtonin rajasta. \cite{whalen, alvarez}
 
-\section{\yt :n sovelluksia} %TODO kerro johonkin yleisestä tavasta tehdä animaatio jos osaa jo tehdä yhden plotin? liian rautalankaa?
+Mitä massiivisempi musta aukko on syntyessään, sitä hitaampi kasvu riittää selittämään havainnot. Romahtaminen suoraan mustaksi aukoksi vaatii kuitenkin sopivat olosuhteet, sillä tavallisesti kaasupilvi fragmentoituu ja syntyy yhden mustan aukon sijaan paljon pienempiä tähtiä. Ainoastaan mikäli kaasupilvi on tarpeeksi suuri eikä sisällä metalleja, pölyä tai molekulaarista vetyä, pilven jäähtyminen on niin hidasta, että se voi romahtaa luokkaa $10^4\ M_{\astrosun}$ massaiseksi mustaksi aukoksi. Näin suuren aukon kasvaminen havaintoja vastaavaksi pystytään jo selittämään uskottavasti. \cite{rj}
+
+Varhaisessa maailmankaikkeudessa metalleja ja pölyä oli hyvin vähän. Tiheillä alueilla molekulaarista vetyä voi kuitenkin syntyä. Siksi jonkin prosessin onkin hajotettava vetymolekyylejä atomeiksi. Tämän voi tehdä esimerkiksi säteily Lyman-Werner -kaistassa (11,2--13,6 eV), joka virittää molekyylin elektronit korkeammille energiatasoille, jolloin molekyyli hajoaa takaisin atomeiksi eikä kaasun jäähtyminen tehostu niin paljon, että se fragmentoituisi tähdenmassaisiksi osiksi. \cite{rj}
+
+\subsection{Tutkittava simulaatio}
+LW-kaistan säteilyn vaikutusta varhaisiin kaasupilviin on tutkittu jo useissa julkaisuissa ja tulokset ovat vaikuttaneet lupaavilta, mutta aiemmissa simulaatioissa säteily on ollut isotrooppista. Tarkasteltavassa John Reganin et al. simulaatiossa on tästä poiketen käytetty pistemäistä säteilylähdettä ja jätetty mahdollisen LW-taustan vaikutukset huomiotta. Tämä todennäköisesti vastaa aiempia simulaatioita paremmin todellisia olosuhteita. \cite{rj}
+
+Simulaatiossa tutkittiin pienehkön halon romahtamista kun 3 kpc päässä siitä on LW-kaistassa säteilevä kohde. 
+
+\section{\yt :n sovelluksia}
 Aloitin \yt :hen tutustumisen selaamalla dokumentaatiota sekä cookbookia\footnote{\url{http://yt-project.org/docs/3.1/cookbook/}} ja ensin kopioimalla ja sittemmin muokkaamalla siellä annettuja malliohjelmia käyttäen esimerkkidataa. Tutustuin tarkimmin halkileikkauksiin, projektioihin ja 3D-renderöinteihin sekä muun muassa niiden akselien tekstien ja jaotuksen tai väriskaalojen muokkaamiseen. Lisäksi kokeilin \yt :n soveltamista animaatioiden tekemiseen.
 
 Opittuani perusasiat aloin soveltaa niitä tutkimusryhmämme tuottamaan dataan kaasupilven romahtamista suoraan mustaksi aukoksi koskevista simulaatioista (Regan et al. 2015). Samalla otin selvää \yt :n tarjoamista mahdollisuuksista usean plotin yhdistämiseksi yhteen kuvaan. Kun samaan kuvaan halutaan useantyyppisiä kuvia, tarvitaan \texttt{eps\_writer}-luokkaa. Sen tarjoama tuki profiileille oli kuitenkin puutteellinen, joten jouduin myös parantelemaan \yt :n lähdekoodia.
@@ -378,6 +388,7 @@ Näiden muutosten jälkeen liitteen \ref{koodi:multiplot-nelikentta} skripti voi
 
 %%%%% Sisältö loppuu, lähdeluettelo %%%%%
 \bibliographystyle{plain}
+\small
 \bibliography{lahteet} %TODO yt api on pienellä
 
 \appendix
