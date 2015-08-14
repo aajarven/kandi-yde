@@ -14,6 +14,7 @@
 \usepackage[section]{placeins}
 \usepackage[nottoc,notlot,notlof]{tocbibind}
 \usepackage{fixltx2e}
+\usepackage{pdfpages}
 
 \usepackage{titlesec}
 \titleclass{\section}{top}
@@ -97,6 +98,8 @@ postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}
 %\addtocontents{toc}{\protect\thispagestyle{empty}}
 
 \begin{document}
+
+\includepdf[fitpaper]{../kansilehti/kansi.pdf}
 
 % Sisällysluettelo
 \newpage
