@@ -274,9 +274,11 @@ Mitä massiivisempi musta aukko on syntyessään, sitä hitaampi kasvu riittää
 Varhaisessa maailmankaikkeudessa metalleja ja pölyä oli hyvin vähän. Tiheillä alueilla molekulaarista vetyä voi kuitenkin syntyä. Siksi jonkin prosessin onkin hajotettava vetymolekyylejä atomeiksi. Tämän voi tehdä esimerkiksi säteily Lyman-Werner -kaistassa (11,2--13,6 eV), joka virittää molekyylin elektronit korkeammille energiatasoille, jolloin molekyyli hajoaa takaisin atomeiksi eikä kaasun jäähtyminen tehostu niin paljon, että se fragmentoituisi tähdenmassaisiksi osiksi. \cite{rj}
 
 \subsection{Tutkittava simulaatio}
-LW-kaistan säteilyn vaikutusta varhaisiin kaasupilviin on tutkittu jo useissa julkaisuissa ja tulokset ovat vaikuttaneet lupaavilta, mutta aiemmissa simulaatioissa säteily on ollut isotrooppista. Tutkielman esimerkkidatana käyttämässäni John Reganin et al. simulaatiossa on tästä poiketen käytetty pistemäistä säteilylähdettä ja jätetty mahdollisen LW-taustan vaikutukset huomiotta. Tämä todennäköisesti vastaa aiempia simulaatioita paremmin todellisia olosuhteita. Simulaatiossa tutkittiin pienehkön halon romahtamista kun 3 kpc päässä siitä on LW-kaistassa säteilevä kohde. Simulaatio ajettiin useita kertoja erilaisilla säteilyn voimakkuuksilla tarvittavan intensiteetin selvittämiseksi. \cite{rj}
+LW-kaistan säteilyn vaikutusta varhaisiin kaasupilviin on tutkittu jo useissa julkaisuissa ja tulokset ovat vaikuttaneet lupaavilta, mutta aiemmissa simulaatioissa säteily on ollut isotrooppista. Tutkielman esimerkkidatana käyttämässäni John Reganin et al. simulaatiossa on tästä poiketen käytetty pistemäistä säteilylähdettä ja jätetty mahdollisen LW-taustan vaikutukset huomiotta. Tämä todennäköisesti vastaa aiempia simulaatioita paremmin todellisia olosuhteita. \cite{rj}
 
-Tutkittavaa halo on peräisin aiemmin ajetuista simulaatioista. Niitä varten ajettiin ensin melko epätarkkoja pelkkää pimeää ainetta sisältäviä simulaatioita, joista poimittiin tiheimmät alueet punasiirtymällä $z=30$, joka vastaa noin kymmenen miljoonan vuoden ikäistä maailmankaikkeutta. Näillä alueilla ajettiin tarkemmat simulaatiot, joissa myös hydronynamiikka otettiin huomioon. \cite{rj}
+Tutkittavaa halo on peräisin aiemmin ajetuista simulaatioista. Niitä varten ajettiin ensin melko epätarkkoja pelkkää pimeää ainetta sisältäviä simulaatioita, joista poimittiin tiheimmät alueet punasiirtymällä $z=30$, joka vastaa noin kymmenen miljoonan vuoden ikäistä maailmankaikkeutta. Näillä alueilla ajettiin tarkemmat simulaatiot, joissa myös hydronynamiikka otettiin huomioon. Datasta valittiin yksi halo, jonka romahtamista tutkittiin. Punasiirtymällä $z = 30$ halon massa oli noin $10^6~M_{\astrosun}$ ja punasiirtymään $z = 21$ mennessä se kasvoi noin massaan $\SI{6e7}{} M_{\astrosun}$. \cite{rj}
+
+Simulaatiossa tutkittiin halon romahtamista kun 3 kpc päässä siitä on LW-kaistassa säteilevä kohde. Simulaatio ajettiin useita kertoja erilaisilla säteilyn voimakkuuksilla tarvittavan intensiteetin selvittämiseksi. Simulaation tulokset viittavat siihen, että noin $10^{54}$ fotonia/s vuo LW-kaistassa riittää vähentämään H$_2$ määrää riittävästi, jotta noin massaltaan luokkaa $10^5~M_{\astrosun}$ oleva kappale voi syntyä. Tätä pienemmillä vuon arvoilla syntyy vain noin $10^3~M_{\astrosun}$ massa, joka romahtaa H$_2$ vaikutuksesta Populaation III tähdeksi. \cite{rj}
 
 \section{\yt :n sovelluksia}
 Aloitin \yt :hen tutustumisen selaamalla dokumentaatiota sekä cookbookia\footnote{\url{http://yt-project.org/docs/3.1/cookbook/}} ja ensin kopioimalla ja sittemmin muokkaamalla siellä annettuja malliohjelmia käyttäen esimerkkidataa. Tutustuin tarkimmin halkileikkauksiin, projektioihin ja 3D-renderöinteihin sekä muun muassa niiden akselien tekstien ja jaotuksen tai väriskaalojen muokkaamiseen. Lisäksi kokeilin \yt :n soveltamista animaatioiden tekemiseen.
@@ -375,8 +377,6 @@ Tämän lisäksi alkuperäisessä koodissa käytetään akselien rajojen, teksti
 
 Lisäksi profiilien kanssa väripalkin käyttäminen ei ole koskaan mielekästä, joten lisäsin \texttt{colorbar\_yt}-funktioon tarkastuksen, jolla varmistetaan, ettei sitä käytetä profiilien kanssa. Mikäli käyttäjä yrittää tehdä näin, heitetään \texttt{RuntimeError} viestillä "When using ProfilePlots you must either set yt\_nocbar=True or provide colorbar flags so that the profiles don't have colorbars".
 
-%TODO push
-
 Näiden muutosten jälkeen liitteen \ref{koodi:multiplot-nelikentta} skripti voidaan ajaa virheettä. Kukin plotti täytyy edelleen tallentaa yksin, jotta plottiin tehdyt muutokset välittyvät luotavaan nelikenttään. Lisäksi \yt piirtää väripalkit niin kauas varsinaisista ploteista, että tarvittaessa väliin mahtuisi akselin selite. Koska sitä ei kuitenkaan tässä plotissa tarvita, muutin tätä plottia varten väripalkin sijoittelua määrääviä vakioita siten, että ne siirtyivät hieman lähemmäs plotteja. Tuloksena saatava nelikenttä on nähtävissä kuvassa \ref{fig:nelikentta}.
 
 \begin{figure}
@@ -385,6 +385,7 @@ Näiden muutosten jälkeen liitteen \ref{koodi:multiplot-nelikentta} skripti voi
    \caption{Liitteessä \ref{koodi:multiplot-nelikentta} esitetyn skriptin tuottama kuva. Ylemmissä ploteissa on esitetty samalta alueelta säteilevän hiukkasen ympäristöstä vedyn lukumäärätiheyden projektio ja läpileikkaus molekulaarisen vedyn osuudesta. Näiden alla olevissa profiileissa on esitetty samat suureet profiileina, vedyn lukumäärätiheys keskitettynä simulaation tiheimpään kohtaan ja molekulaarisen vedyn osuus keskitettynä säteilylähteeseen.} \label{fig:nelikentta}
 \end{figure}
 
+Koodin toimivuuden testaamisen jälkeen loin pull requestin muutosteni sulauttamiseksi \yt :n kehitysversioon. Kokeneemmat kehittäjät arvioivat kaikki pull requestit ja joko ehdottavat parannuksia tai suoraan hyväksyvät tai hylkäävät requestin. Muutokseni hyväksyttiin, joten nyt ne ovat kaikkien hyödynnettävissä ja paranneltavissa. 
 
 %%%%% Sisältö loppuu, lähdeluettelo %%%%%
 \bibliographystyle{plain}
