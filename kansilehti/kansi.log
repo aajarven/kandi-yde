@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.9.5)  14 AUG 2015 14:39
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.9.5)  14 AUG 2015 16:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -316,7 +316,7 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \Gin@req@height=\dimen104
 \Gin@req@width=\dimen105
 )
-No file kansi.aux.
+(./kansi.aux)
 \openout1 = `kansi.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
@@ -331,7 +331,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
 LaTeX Font Info:    ... okay on input line 35.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
 LaTeX Font Info:    ... okay on input line 35.
-(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+ (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count90
 \scratchdimen=\dimen106
@@ -433,17 +433,17 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 2308 strings out of 493481
- 30001 string characters out of 3143394
- 83447 words of memory out of 3000000
+ 2310 strings out of 493481
+ 30021 string characters out of 3143394
+ 83444 words of memory out of 3000000
  5575 multiletter control sequences out of 15000+200000
  13661 words of font info for 35 fonts, out of 3000000 for 9000
  965 hyphenation exceptions out of 8191
- 37i,6n,23p,253b,222s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 37i,6n,23p,248b,222s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on kansi.pdf (1 page, 72441 bytes).
+Output written on kansi.pdf (1 page, 72387 bytes).
 PDF statistics:
  24 PDF objects out of 1000 (max. 8388607)
  15 compressed objects within 1 object stream
