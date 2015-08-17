@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
 
-ds = yt.load("/data/scratch3/extragal/Enzo/data/LWIR/RD0072/RD0072")
+ds = yt.load("data/dataset")
 dd=ds.all_data()
 
 sarakkeet = 2
