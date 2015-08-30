@@ -11,7 +11,7 @@ yaxis_flags = []
 cb_location=[]
 plotit = []
 
-ds=yt.load("/data/scratch3/extragal/Enzo/data/LWIR/RD0076/RD0076")
+ds=yt.load("data/dataset")
 v, tiheysmaksimi = ds.find_max("density")
 
 # ensimmäinen kuva
